@@ -62,3 +62,8 @@
 - [김태용](https://github.com/YongsHub)(팀원)
 - [김현수](https://github.com/KimHacne)(팀원)
 - [박승찬](https://github.com/eemdeeks)(팀원)
+
+* * *
+
+> **Scrum Framework**
+- Trello https://trello.com/b/JNV0cOVH/2022-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8
