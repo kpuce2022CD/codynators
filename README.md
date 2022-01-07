@@ -1,5 +1,9 @@
-<p align="right"><img src="https://user-images.githubusercontent.com/56003992/138816338-49083cd9-569a-4f34-b001-ba6584ae2a2e.png"  width="192" height="133"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/56003992/138816338-49083cd9-569a-4f34-b001-ba6584ae2a2e.png"  width="380" height="260"></p>
+ 
+**Schedule: [Trello](https://trello.com/b/JNV0cOVH/2022-캡스톤-디자인)**
 
+&nbsp;
+&nbsp;
 > **Come Up With Ideas💡** 
 
 2020년 시즌1에 이어 2021년 시즌2까지 <슬기로운 의사생활>이라는 드라마(이하 '슬의생')가 국내에서 인기를 끌었다. <슬의생>에서 나오는 주연 의사들은 취미생활로 밴드 활동을 하는데, 드라마가 흥행한 만큼 <슬의생> 배우들의 COVER한 밴드 음악들도 인기를 끌었고, 밴드 또한 주목을 받았다. 밴드하면 우리는 기타를 먼저 떠올리지만, 드럼은 기타만큼이나 밴드에서 중요한 포지션을 맡고 있다. 하지만 주변에서 드러머(: Drummer)를 찾기는 힘들 것이다. 드럼은 초보자가 시작하기에 가격이 비싸고, 이러한 문제점의 솔루션으로 비교적 값 싼 전자드럼이 출시됐지만, 드럼 연주의 난이도와 흥미 등의 문제로 접근성이 낮기 때문이다. 
@@ -64,6 +68,3 @@
 - [박승찬](https://github.com/eemdeeks)(팀원)
 
 * * *
-
-> **Scrum Framework**
-- Trello https://trello.com/b/JNV0cOVH/2022-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8
