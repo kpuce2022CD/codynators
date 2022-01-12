@@ -1,7 +1,7 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/56003992/138816338-49083cd9-569a-4f34-b001-ba6584ae2a2e.png"  width="380" height="260"></p>
  
 **Schedule: [Trello](https://trello.com/b/JNV0cOVH/2022-캡스톤-디자인)**
-
+&nbsp;
 &nbsp;
 &nbsp;
 > **Come Up With Ideas💡** 
