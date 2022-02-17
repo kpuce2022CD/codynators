@@ -1,13 +1,8 @@
 from pdf2image import convert_from_path
-import matplotlib.pyplot as plt
 
-pdf_path = './gooday.pdf'
-image_list = convert_from_path(pdf_path)
+file_name = "gooday.pdf"
 
-page_no = 1
-image = image_list[page_no - 1]
+pages = convert_from_path("./" + file_name)
 
-plt.figure(figsize=(16, 10))
-plt.imshow(image)
-plt.show()
-
+for i, page in enumerate(pages):
+    page.save("./source/"+file_name+str(i)+".jpg", "JPEG")
