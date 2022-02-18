@@ -11,9 +11,11 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject goNote = null;
 
     TimingManager theTimingManager;
+    EffectManager theEffectManager;
 
     void Start()
     {
+        theEffectManager = FindObjectOfType<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
     }
 
@@ -36,6 +38,10 @@ public class NoteManager : MonoBehaviour
     {
         if (collision.CompareTag("Note"))
         {
+            //노트가 그냥 지나갔을 때 미스 연출
+            if(collision.GetComponent<Note>().GetNoteFlag())
+                theEffectManager.JudgementEffect(4);
+
             theTimingManager.boxNoteList.Remove(collision.gameObject);
             Destroy(collision.gameObject);
         }

@@ -27,4 +27,9 @@ public class Note : MonoBehaviour
         noteImage.enabled = false;
     }
 
+    public bool GetNoteFlag()
+    {
+        return noteImage.enabled;
+    }
+
 }
