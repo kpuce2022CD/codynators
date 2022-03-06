@@ -18,7 +18,10 @@ for i, page in enumerate(pages):
 
     masked_image = module.rmNoise(image)
 
-    cv2.imshow('image', masked_image)
-    cv2.imwrite("./source/" + "mask" + str(i) + ".png", masked_image)
+    noStaves_img, staves = module.rmStaves(masked_image)
+
+    cv2.imshow('image', noStaves_img)
+    cv2.imwrite("./source/" + "mask" + str(i) + ".png", noStaves_img)
+    print("exit")
 
 
