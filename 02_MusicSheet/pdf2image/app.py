@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import functions as fs
 import os
 
-file_name = "gotrip.pdf"
+file_name = "sample.pdf"
 
 pages = convert_from_path("./musicsheet/" + file_name)
 
@@ -20,7 +20,9 @@ for i, page in enumerate(pages):
 
     noStaves_img, staves = module.rmStaves(masked_image)
 
-    cv2.imshow('image', noStaves_img)
+    #normal_MS, staves = module.musicsheetNormalization(noStaves_img, staves, 30)
+
+    #cv2.imshow('image', noStaves_img)
     cv2.imwrite("./source/" + "mask" + str(i) + ".png", noStaves_img)
     print("exit")
 
