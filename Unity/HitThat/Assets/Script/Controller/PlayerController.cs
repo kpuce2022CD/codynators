@@ -22,27 +22,29 @@ public class PlayerController : MonoBehaviour
         {
             theTimingManager.SnareCheckTiming();
         }
+
+        // if (Input.GetKeyDown(KeyCode.D))
+        // {
+        //     theTimingManager.CrashCheckTiming();
+        // }  
+        // if (Input.GetKeyDown(KeyCode.F))
+        // {
+        //     theTimingManager.HighTomCheckTiming();
+        // }  
+        // if (Input.GetKeyDown(KeyCode.G))
+        // {
+        //     theTimingManager.MidTomCheckTiming();
+        // }    
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     theTimingManager.LowTomCheckTiming();
+        // }  
+        // if (Input.GetKeyDown(KeyCode.J))
+        // {
+        //     theTimingManager.RideCheckTiming();
+        // } 
+
         if (Input.GetKeyDown(KeyCode.D))
-        {
-            theTimingManager.CrashCheckTiming();
-        }  
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            theTimingManager.HighTomCheckTiming();
-        }  
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            theTimingManager.MidTomCheckTiming();
-        }    
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            theTimingManager.LowTomCheckTiming();
-        }  
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            theTimingManager.RideCheckTiming();
-        } 
-        if (Input.GetKeyDown(KeyCode.K))
         {
             theTimingManager.BaseCheckTiming();
         }  

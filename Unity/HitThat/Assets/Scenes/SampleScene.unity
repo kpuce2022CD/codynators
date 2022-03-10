@@ -1386,21 +1386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8ed53669bc3d34dacc498d6ff7cd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 120
+  bpm: 240
   tfHiHatNoteAppear: {fileID: 1753245403}
   goHiHatNote: {fileID: 5336587950006648150, guid: 2bf0bb2d061121e4d8464fe03a440547, type: 3}
   tfSnareNoteAppear: {fileID: 973420046}
   goSnareNote: {fileID: 5336587950006648150, guid: 99e7e378a7e233e498636042d0bf9e73, type: 3}
-  tfCrashNoteAppear: {fileID: 1300817735}
-  goCrashNote: {fileID: 5336587950006648150, guid: 6a1199e44535f0544918b29c42ee7bea, type: 3}
-  tfHighTomNoteAppear: {fileID: 1175075835}
-  goHighTomNote: {fileID: 5336587950006648150, guid: 8b834e8321d054343b20466718fc4c0b, type: 3}
-  tfMidTomNoteAppear: {fileID: 627102029}
-  goMidTomNote: {fileID: 5336587950006648150, guid: eb3b66cc5a1282a4082a307e2582720a, type: 3}
-  tfLowTomNoteAppear: {fileID: 695125651}
-  goLowTomNote: {fileID: 5336587950006648150, guid: 1225fdb11a9f51d4ba4b887260ad70d4, type: 3}
-  tfRideNoteAppear: {fileID: 190737670}
-  goRideNote: {fileID: 5336587950006648150, guid: 8555200c3934d2c46a3df01b1bd9a67b, type: 3}
   tfBaseNoteAppear: {fileID: 71558898}
   goBaseNote: {fileID: 5336587950006648150, guid: d278c6c538e17d74aa9557dd06218ec8, type: 3}
 --- !u!61 &756999509
@@ -1443,11 +1433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitHatNoteList: []
   SnareNoteList: []
-  CrashNoteList: []
-  HighTomNoteList: []
-  MidTomNoteList: []
-  LowTomNoteList: []
-  RideNoteList: []
   BaseNoteList: []
   Center: {fileID: 286553961}
   timingRect:
@@ -2779,9 +2764,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HiHatHitAnimator: {fileID: 1601345059}
   SnareHitAnimator: {fileID: 667188500}
-  CrashHitAnimator: {fileID: 1690319124}
-  HighTomHitAnimator: {fileID: 444944579}
-  MidTomHitAnimator: {fileID: 1019725648}
-  LowTomHitAnimator: {fileID: 728848283}
-  RideHitAnimator: {fileID: 791527198}
   BaseHitAnimator: {fileID: 1649418619}
