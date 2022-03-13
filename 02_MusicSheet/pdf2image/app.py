@@ -14,6 +14,8 @@ for i, page in enumerate(pages):
     file = "./source/" + file_name + str(i) + ".jpg"
     page.save(file, "JPEG")
 
+
+
     #file2 = "./source/sample.png"
 
     image = cv2.imread(file)
@@ -25,7 +27,7 @@ for i, page in enumerate(pages):
     #normal_MS, staves = preprocessing.musicsheetNormalization(noStaves_img, staves, 30)
 
     #cv2.imshow('image', normal_MS)
-    cv2.imwrite("./source/" + "masktest" + str(i) + ".png", masked_image)
+    cv2.imwrite("./source/" + "test" + str(i) + ".png", masked_image)
     print("exit")
 
 
