@@ -24,3 +24,9 @@ def put_text(image, text, loc):
 
 def get_center(y, h):
     return (y + y + h) / 2
+
+# 같은 객체임에도 픽셀이 끈헝지거나 다른 객체로 검출될 수 있기 때문에 함수 선언
+def closing(image):
+    kernel = np.ones((weighted(5), weighted(5)), np.uint8)
+    image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
+    return image
