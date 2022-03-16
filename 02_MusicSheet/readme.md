@@ -4,6 +4,7 @@
 
 ```shell
 brew install poppler 
+pip! install pdf2image
 ```
 
 ## 2. python module
