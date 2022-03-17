@@ -6,7 +6,9 @@ import android.util.Log
 import com.example.codrum.Dialog.LoadingDaialog
 import com.example.codrum.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
 
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +37,16 @@ class MainActivity : AppCompatActivity() {
             {
                 dialog.show()
                 CoroutineScope(Dispatchers.Default).launch {
-                     val fbRegister = async{runBlocking{
-                            register(email,passwd)
+                    val fbRegister = launch{
+                        runBlocking{
+                            register(email,passwd,name)
                         }
-                     }
+                    }
                     dialog.dismiss()
                 }
-
-
             }else{
                 return@setOnClickListener
             }
-
         }
 
         binding.btnBack.setOnClickListener {
@@ -62,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         val name : String = binding.tilName.editText?.text.toString()
 
         var count = 0
-
         // 이메일 유효성
         if (email.isEmpty()) {
             binding.tilEmail.error = "이메일을 입력해 주세요."
@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
             binding.tilPasswd.isErrorEnabled = false
             count++
         }
-
         //이름 유효성 검사
         if(name.isEmpty()){
             binding.tilName.error = "이름을 입력해 주세요."
@@ -95,30 +94,37 @@ class MainActivity : AppCompatActivity() {
             binding.tilName.isErrorEnabled = false
             count++
         }
-
         if(count == 3) return true
 
         return false
-
     }
 
-    private suspend fun register(email: String, password : String) {
+    private suspend fun register(email: String, password : String, name: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("auth", "createUserWithEmail:success")
+
+                    val user = auth.currentUser
+                    val data = hashMapOf(
+                        "name" to name,
+                        "uid" to user?.uid.toString()
+                    )
+                    db.collection("User").document(name)
+                        .set(data)
+                        .addOnSuccessListener { Log.d("Firestore","Success to writing data") }
+                        .addOnFailureListener { e -> Log.w("Firestore","Fail to writing data",e)}
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("auth", "createUserWithEmail:failure", task.exception)
                 }
             }
+        delay(100L)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }
