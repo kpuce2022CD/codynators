@@ -43,17 +43,14 @@ class LoginActivity : AppCompatActivity() {
                 val password = binding.tilPasswd.editText?.text.toString()
                 Log.d("valid","email = $email, password = $password")
 
-                dialog.show()
-                CoroutineScope(Dispatchers.Default).launch {
-                    val fbLogin = async{
-                        runBlocking{
-                            signIn(email,password)
-                        }
+                CoroutineScope(Dispatchers.Main).launch {
+                    dialog.show()
+                    val fbSignIn = withContext(Dispatchers.IO){
+                        signIn(email,password)
                     }
-                    fbLogin.await()
+                    delay(1000L)
                     dialog.dismiss()
                 }
-                goMain(auth?.currentUser)
             }else{
                 return@setOnClickListener
             }
@@ -74,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
             ?.addOnCompleteListener(this) { task ->
                 if(task.isSuccessful){
                     toast("로그인 성공")
+                    goMain(auth?.currentUser)
                     Log.d("signIn","signIn Success")
                 }else{
                     Log.d("signIn","signIn Failed")
