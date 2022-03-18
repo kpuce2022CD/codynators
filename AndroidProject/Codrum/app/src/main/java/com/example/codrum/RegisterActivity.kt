@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private val db = Firebase.firestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -32,21 +33,18 @@ class RegisterActivity : AppCompatActivity() {
             val passwd : String = binding.tilPasswd.editText?.text.toString()
             val name : String = binding.tilName.editText?.text.toString()
 
-
             if(isValidate())
             {
+                val dialog = LoadingDaialog(this)
 
-                val dialog = LoadingDaialog(this@RegisterActivity)
-
-                runBlocking {
-                    val fbRegister = launch{
-                        launch{
-                            register(email,passwd,name)
-                        }
-                        dialog.show()
+                CoroutineScope(Dispatchers.Main).launch {
+                    dialog.show()
+                    var fbRegister = withContext(Dispatchers.IO){
+                        register(email,passwd,name)
                     }
-                    fbRegister.join()
+                    delay(1000L)
                     dialog.dismiss()
+                    finish()
                 }
 
 
@@ -105,12 +103,10 @@ class RegisterActivity : AppCompatActivity() {
         return false
     }
 
-    private suspend fun register(email: String, password : String, name: String) {
+    private suspend fun register(email: String, password : String, name : String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d("auth", "createUserWithEmail:success")
-
                     val user = auth.currentUser
                     val data = hashMapOf(
                         "name" to name,
@@ -120,12 +116,14 @@ class RegisterActivity : AppCompatActivity() {
                         .set(data)
                         .addOnSuccessListener { Log.d("Firestore","Success to writing data") }
                         .addOnFailureListener { e -> Log.w("Firestore","Fail to writing data",e)}
+                    toast("계정 생성 완료")
+                    Log.d("auth", "createUserWithEmail:success")
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("auth", "createUserWithEmail:failure", task.exception)
                 }
             }
-        delay(100L)
+
     }
 
     override fun onDestroy() {

@@ -127,4 +127,9 @@ class LoginActivity : AppCompatActivity() {
             Log.d("goMain","User not exist")
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
