@@ -33,11 +33,11 @@ for i, page in enumerate(pages):
     # img : 이미지 파일, pt1: 시작점 좌표, pt2: 종료점 좌표 color: 색상 , thickness : 선 두께
 
     # 5. 객체 분석 과정
-    normal_MS, objects = objectRecognition.object_analysis(normal_MS, objects)
+    findObject, objects = objectRecognition.object_analysis(findObject, objects)
 
     # 6. 인식 과정
-    normal_MS, key, beats, pitches = objectRecognition.recognition(normal_MS, staves, objects)
-    cv2.imwrite("./source/" + "검출" + str(i) + ".png", normal_MS)
+    findObject, key, beats, pitches = objectRecognition.recognition(findObject, staves, objects)
+    cv2.imwrite("./source/" + "검출" + str(i) + ".png", findObject)
     print("exit")
 
 

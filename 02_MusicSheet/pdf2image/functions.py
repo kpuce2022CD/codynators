@@ -10,7 +10,7 @@ def threshold(image):
     return image
 
 def weighted(value):
-    standard = 10
+    standard = 150
     return int(value * (standard / 150))
 
 # 닫힘 연산: 객체부분을 넓혔다가 다시 원래대로 돌림으로써 객체안에 존재하는 노이즈를 제거하는 연산
