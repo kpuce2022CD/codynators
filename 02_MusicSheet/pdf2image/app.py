@@ -2,6 +2,8 @@ from pdf2image import convert_from_path
 import cv2
 import preprocessing
 import objectProcessing
+import objectRecognition
+import recognition_modules
 import numpy as np
 import matplotlib.pyplot as plt
 import functions as fs
@@ -31,23 +33,10 @@ for i, page in enumerate(pages):
     # img : 이미지 파일, pt1: 시작점 좌표, pt2: 종료점 좌표 color: 색상 , thickness : 선 두께
 
     # 5. 객체 분석 과정
-    for obj in objects:
-        stats = obj[1]
-        stems = fs.stem_detection(normal_MS, stats, 30)  # 객체 내의 모든 직선들을 검출함
-        direction = None
-        if len(stems) > 0:  # 직선이 1개 이상 존재함
-            if stems[0][0] - stats[0] >= fs.weighted(5):  # 직선이 나중에 발견되면
-                direction = True  # 정 방향 음표
-            else:  # 직선이 일찍 발견되면
-                direction = False  # 역 방향 음표
-        obj.append(stems)  # 객체 리스트에 직선 리스트를 추가
-        obj.append(direction)  # 객체 리스트에 음표 방향을 추가
+    normal_MS, objects = objectRecognition.object_analysis(normal_MS, objects)
 
-    for obj in objects:
-        (x, y, w, h, area) = obj[1]
-        if len(obj[2]):
-            fs.put_text(normal_MS, len(obj[2]), (x, y + h + 20))
-
+    # 6. 인식 과정
+    normal_MS, key, beats, pitches = objectRecognition.recognition(normal_MS, staves, objects)
     cv2.imwrite("./source/" + "검출" + str(i) + ".png", normal_MS)
     print("exit")
 
