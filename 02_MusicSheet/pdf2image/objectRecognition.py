@@ -9,13 +9,14 @@ def recognition(image, staves, objects):
     beats = []  # 박자 리스트
     pitches = []  # 음이름 리스트
 
-    for i in range(1, len(objects)):
+    for i in range(0, len(objects)):
         obj = objects[i]
         line = obj[0]
         stats = obj[1]
         stems = obj[2]
-        direction = obj[3]
+        index = obj[3]
         (x, y, w, h, area) = stats
+        print(i, '번에 순서 찍기', stats)
 
         # staff = staves[line * 5: (line + 1) * 5]
         # if not time_signature:  # 조표가 완전히 탐색되지 않음 (아직 박자표를 찾지 못함)
@@ -28,7 +29,7 @@ def recognition(image, staves, objects):
         #     pass
 
         cv2.rectangle(image, (x, y, w, h), (255, 0, 0), 1)
-        fs.put_text(image, i, (x, y - fs.weighted(30)))
+        fs.put_text(image, index, (x, y - fs.weighted(30)))
 
     return image, key, beats, pitches
 
