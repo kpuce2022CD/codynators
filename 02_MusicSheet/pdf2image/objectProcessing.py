@@ -7,7 +7,8 @@ import functions as fs
 def object_classification(objects):
     axis, cnt = 0, -1
     index = 1
-    for i in range(len(objects)):
+    i = 0
+    while i < len(objects)-1:
         if i == len(objects) - 1: # 마지막  도달시 object return
             print('인덱스 재배열', objects)
             return objects
@@ -44,6 +45,8 @@ def object_classification(objects):
         else:
             objects[i].append(index)
             index += 1
+
+        i += 1
 
     return objects
 
