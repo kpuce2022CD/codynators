@@ -24,6 +24,7 @@ def object_detection(image, staves):
                 if area_top <= center <= area_bot:
                     # 1. (x,y,w,h,area)를 가지고 있는 객체가 없다면
                     flag = False
+
                     for index, obj in enumerate(objects):
                         if (x, y, w, h, area) == obj[1]:
                             flag = True
@@ -35,13 +36,9 @@ def object_detection(image, staves):
                         objects.append([line, (x, y, w, h, area), aver])  # 객체 리스트에 보표 번호와 객체의 정보(위치, 크기)를 추가
                     # 2. 있다면 aver 비교 (작은 값을 넣어준다)
                     print("line: ", line)
-        # fs.put_text(image, i, (x, y - fs.weighted(20)))
+            # fs.put_text(image, (x, y - fs.weighted(20)))
 
     objects.sort()  # 보표 번호 → x 좌표 순으로 오름차순 정렬
     print(objects)
-
-    # for obj in objects:
-    #     l, (x, y, w, h, area), aver = obj
-    #     fs.put_text(image, l, (x, y - fs.weighted(20)))
 
     return image, objects
