@@ -9,9 +9,6 @@ def object_classification(objects):
     index = 1
     i = 0
     while i < len(objects)-1:
-        if i == len(objects) - 1: # 마지막  도달시 object return
-            print('인덱스 재배열', objects)
-            return objects
         line_0, (x_0, y_0, w_0, h_0, area_0) = objects[i][0], objects[i][1] # 현재 value
         line_1, (x_1, y_1, w_1, h_1, area_1) = objects[i + 1][0], objects[i + 1][1] # 다음 value
 
@@ -35,19 +32,38 @@ def object_classification(objects):
                         break
                 i += count - 1
 
-
             # 이어진 음표가 없을 경우 같은 인덱스 부여
             else:
-                objects[i].append(index)
-                objects[i + 1].append(index)
-                index += 1
-                i += 1
+                # 하이햇 오픈 클로즈 객체 처리
+                if i < len(objects) - 2:
+                    line_2, (x_2, y_2, w_2, h_2, area_2) = objects[i + 2][0], objects[i + 2][1]
+                    # 객체가 한 y축 직선상 세 개가 있는 경우
+                    if x_1 <= x_2 + (w_2 / 2) <= x_1 + w_1 or x_2 <= x_1 + (w_1 / 2) <= x_2 + w_2:
+                        objects[i].append(index)
+                        objects[i + 1].append(index)
+                        objects[i + 2].append(index)
+                        index += 1
+                        i += 2
+                    else:
+                        objects[i].append(index)
+                        objects[i + 1].append(index)
+                        index += 1
+                        i += 1
+                else:
+                    objects[i].append(index)
+                    objects[i + 1].append(index)
+                    index += 1
+                    i += 1
         else:
             objects[i].append(index)
             index += 1
 
         i += 1
 
+    # 마지막 객체가 index가 안 들어갔을 경우 예외 처리
+    if len(objects[-1]) == 3:
+        objects[-1].append(index)
+    print('인덱스 재배열', objects)
     return objects
 
 
