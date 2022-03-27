@@ -15,7 +15,8 @@ def recognize_key(image, staves, stats):
         return True, 0
     else:  # 조표가 있을 경우 (다장조를 제외한 모든 조)
         stems = fs.stem_detection(image, stats, 20)
-        if stems[0][0] - x >= fs.weighted(3):  # 직선이 나중에 발견되면
+
+        if len(stems) > 0 and (stems[0][0] - x >= fs.weighted(3)):  # 직선이 나중에 발견되면
             key = int(10 * len(stems) / 2)  # 샾
         else:  # 직선이 일찍 발견되면
             key = 100 * len(stems)  # 플랫
@@ -26,9 +27,10 @@ def recognize_key(image, staves, stats):
 
 def recognize_note(image, staff, stats, stems, direction):
     x, y, w, h, area = stats
+    print('recognize_note', stems)
     if len(stems):
         fs.put_text(image, w, (x, y + h + fs.weighted(30)))
         fs.put_text(image, h, (x, y + h + fs.weighted(60)))
-        fs.put_text(image, fs.count_rect_pixels(image, (x, y, w, h)), (x, y + h + fs.weighted(90)))
+        fs.put_text(image, fs.count_pixels(image, (x, y, w, h)), (x, y + h + fs.weighted(90)))
 
     pass

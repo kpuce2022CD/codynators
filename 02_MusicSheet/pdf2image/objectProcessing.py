@@ -30,7 +30,7 @@ def object_classification(objects):
                         count += 1
                     else:
                         break
-                i += count - 1
+                i += count
 
             # 이어진 음표가 없을 경우 같은 인덱스 부여
             else:

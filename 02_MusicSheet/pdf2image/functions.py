@@ -63,6 +63,7 @@ def get_line(image, axis, axis_value, start, end, length):
     return y if axis else x, pixels
 
 # axis true 세로로 된 직선 검출 false 가로로 된 직선 검출
+# 3/28 stem_detection에서 stems 인식 문제
 def stem_detection(image, stats, length):
     (x, y, w, h, area) = stats
     stems = []  # 기둥 정보 (x, y, w, h)
@@ -74,4 +75,5 @@ def stem_detection(image, stats, length):
                 stems.append([x, y, w, h])
             else:
                 stems[-1][2] += 1
+    print('stem_detection', stems)
     return stems
