@@ -89,3 +89,4 @@ crashlytics-build.properties
 .cxx
 local.properties
 Unity/eemdeeks/Drum music/Packages/com.ptc.vuforia.engine-10.5.5.tgz
+*.tgz
