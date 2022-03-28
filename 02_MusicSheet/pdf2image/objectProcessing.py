@@ -31,6 +31,7 @@ def object_classification(objects):
                     else:
                         break
                 i += count
+                index += 1
 
             # 이어진 음표가 없을 경우 같은 인덱스 부여
             else:
@@ -63,7 +64,7 @@ def object_classification(objects):
     # 마지막 객체가 index가 안 들어갔을 경우 예외 처리
     if len(objects[-1]) == 3:
         objects[-1].append(index)
-    print('인덱스 재배열', objects)
+    # print('인덱스 재배열', objects)
     return objects
 
 
@@ -114,13 +115,13 @@ def object_detection(image, staves):
             # fs.put_text(image, (x, y - fs.weighted(20)))
 
     objects.sort()  # 보표 번호 → x 좌표 순으로 오름차순 정렬
-    for i, v in enumerate(objects):
-        print(i,'번: ', v)
+    #for i, v in enumerate(objects):
+    #    print(i,'번: ', v)
 
     for line in range(lines):
         area_top = staves[line * 5] - fs.weighted(150)  # 위치 조건 (상단)
         area_bot = staves[(line + 1) * 5 - 1] + fs.weighted(150)  # 위치 조건 (하단)
         width = (area_bot - area_top) / 2
-        print("top: ", line, " pix: ", area_top, "      bot: ", line, " pix: ", area_bot)
-        print("line: ", line, " / center: ", area_bot-width)
+    #    print("top: ", line, " pix: ", area_top, "      bot: ", line, " pix: ", area_bot)
+    #    print("line: ", line, " / center: ", area_bot-width)
     return image, object_classification(objects)
