@@ -7,9 +7,11 @@ public class NoteManager : MonoBehaviour
 
     public int bpm = 0;
 
-    double HihatcurrentTime = 0d;
-    double SnarecurrentTime = 0d;
-    double BasecurrentTime = 0d;
+    int index = 0;
+    int madi = 1;
+
+    double currentTime = 0d;
+
 
     [SerializeField] Transform tfHiHatNoteAppear = null; //HiHat노트가 생성될 위치 변수
     [SerializeField] GameObject goHiHatNote = null; //HiHat노트 prefab을 담을 변수
@@ -45,64 +47,46 @@ public class NoteManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int SnareBpm = bpm-180;
-        int BaseBpm = bpm-120;
-
-        HihatcurrentTime += Time.deltaTime; //1초씩 증가
-        SnarecurrentTime += Time.deltaTime; //1초씩 증가
-        BasecurrentTime += Time.deltaTime; //1초씩 증가
+        currentTime += Time.deltaTime; //1초씩 증가
         
-        if(HihatcurrentTime >= 60d/bpm) //ex bpm이 120이면 0.5초당 노트가 하나씩
+        int [,] list =new int[3,4] {{1,1,1,1},{0,0,1,0},{1,0,1,0}};
+
+
+        if(currentTime >= 60d/bpm) //ex bpm이 120이면 0.5초당 노트가 하나씩
         {
-            GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
-            Debug.Log("하이앳 생성");
-            // GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteCrash = Instantiate(goCrashNote, tfCrashNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteHighTom = Instantiate(goHighTomNote, tfHighTomNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteMidTom = Instantiate(goMidTomNote, tfMidTomNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteLowTom = Instantiate(goLowTomNote, tfLowTomNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteRide = Instantiate(goRideNote, tfRideNoteAppear.position, Quaternion.identity); // 노트 생성
-            //GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
+            if(list[0,index] == 1)
+            {
+                 GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
+                Debug.Log("하이앳 생성");       
+                t_noteHitHat.transform.SetParent(this.transform);
+                theTimingManager.HitHatNoteList.Add(t_noteHitHat);
+            }
 
-            t_noteHitHat.transform.SetParent(this.transform);
-            // t_noteSnare.transform.SetParent(this.transform);
-           // t_noteCrash.transform.SetParent(this.transform);
-           // t_noteHighTom.transform.SetParent(this.transform);
-           // t_noteMidTom.transform.SetParent(this.transform);
-           // t_noteLowTom.transform.SetParent(this.transform);
-           // t_noteRide.transform.SetParent(this.transform);
-           // t_noteBase.transform.SetParent(this.transform);
+            if(list[1,index]==1)
+            {
+                GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
+                Debug.Log("스네어 생성");
+                t_noteSnare.transform.SetParent(this.transform);
+                theTimingManager.SnareNoteList.Add(t_noteSnare);
+            }
 
-            theTimingManager.HitHatNoteList.Add(t_noteHitHat);
-            // theTimingManager.SnareNoteList.Add(t_noteSnare);
-           // theTimingManager.CrashNoteList.Add(t_noteCrash);
-           // theTimingManager.HighTomNoteList.Add(t_noteHighTom);
-           // theTimingManager.MidTomNoteList.Add(t_noteMidTom);
-           // theTimingManager.LowTomNoteList.Add(t_noteLowTom);
-           // theTimingManager.RideNoteList.Add(t_noteRide);
-           // theTimingManager.BaseNoteList.Add(t_noteBase);
-
-            HihatcurrentTime -= 60d/ bpm; //소수점 오차고려
+            if (list[2,index] ==1 ){
+                GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
+                Debug.Log("베이스 생성");
+                t_noteBase.transform.SetParent(this.transform);
+                theTimingManager.BaseNoteList.Add(t_noteBase);
+            }
+    
+            currentTime -= 60d/ bpm; //소수점 오차고려
+            index ++;
+            if(index == 4){
+                madi ++;
+                index =0;
+            }
         }
 
-        if(BasecurrentTime >= 60d/BaseBpm)
-        {
-            GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
-            Debug.Log("베이스 생성");
-            t_noteBase.transform.SetParent(this.transform);
-            theTimingManager.BaseNoteList.Add(t_noteBase);
-
-            BasecurrentTime -= 60d/ BaseBpm; //소수점 오차고려
-        }
-
-        if(SnarecurrentTime >= 60d/SnareBpm)
-        {
-            GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
-            Debug.Log("스네어 생성");
-            t_noteSnare.transform.SetParent(this.transform);
-            theTimingManager.SnareNoteList.Add(t_noteSnare);
-
-            SnarecurrentTime -= 60d/ SnareBpm; //소수점 오차고려
+        if(madi == 30){
+            //종료시키기
         }
     }
 
