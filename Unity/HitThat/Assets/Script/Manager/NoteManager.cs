@@ -12,7 +12,6 @@ public class NoteManager : MonoBehaviour
 
     double currentTime = 0d;
 
-
     [SerializeField] Transform tfHiHatNoteAppear = null; //HiHat노트가 생성될 위치 변수
     [SerializeField] GameObject goHiHatNote = null; //HiHat노트 prefab을 담을 변수
 
@@ -39,8 +38,15 @@ public class NoteManager : MonoBehaviour
 
     TimingManager theTimingManager;
 
+    public int _exp =0;
     void Start()
     {
+        List<Dictionary<string,object>> data = CSVReader.Read("test");
+        for (var i =0 ; i<data.Count; i++)
+        {
+            Debug.Log("index"+(i).ToString() + ":"+data[i]["Hihat"]+" "+data[i]["Base"]+" "+data[i]["Snare"]);
+        }
+
         theTimingManager = GetComponent<TimingManager>();
     }
 
@@ -56,8 +62,8 @@ public class NoteManager : MonoBehaviour
         {
             if(list[0,index] == 1)
             {
-                 GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
-                Debug.Log("하이앳 생성");       
+                GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
+                //Debug.Log("하이앳 생성");       
                 t_noteHitHat.transform.SetParent(this.transform);
                 theTimingManager.HitHatNoteList.Add(t_noteHitHat);
             }
@@ -65,14 +71,14 @@ public class NoteManager : MonoBehaviour
             if(list[1,index]==1)
             {
                 GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
-                Debug.Log("스네어 생성");
+                //Debug.Log("스네어 생성");
                 t_noteSnare.transform.SetParent(this.transform);
                 theTimingManager.SnareNoteList.Add(t_noteSnare);
             }
 
             if (list[2,index] ==1 ){
                 GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
-                Debug.Log("베이스 생성");
+                //Debug.Log("베이스 생성");
                 t_noteBase.transform.SetParent(this.transform);
                 theTimingManager.BaseNoteList.Add(t_noteBase);
             }
