@@ -9,11 +9,11 @@ public class TimingManager : MonoBehaviour
     
     public List<GameObject> HitHatNoteList = new List<GameObject>();
     public List<GameObject> SnareNoteList = new List<GameObject>(); 
-    // public List<GameObject> CrashNoteList = new List<GameObject>(); 
-    // public List<GameObject> HighTomNoteList = new List<GameObject>(); 
-    // public List<GameObject> MidTomNoteList = new List<GameObject>(); 
-    // public List<GameObject> LowTomNoteList = new List<GameObject>(); 
-    // public List<GameObject> RideNoteList = new List<GameObject>(); 
+    public List<GameObject> CrashNoteList = new List<GameObject>(); 
+    public List<GameObject> HighTomNoteList = new List<GameObject>(); 
+    public List<GameObject> MidTomNoteList = new List<GameObject>(); 
+    public List<GameObject> LowTomNoteList = new List<GameObject>(); 
+    public List<GameObject> RideNoteList = new List<GameObject>(); 
     public List<GameObject> BaseNoteList = new List<GameObject>();   
 
     [SerializeField] Transform Center = null; // 중심 알려줌
@@ -90,125 +90,125 @@ public class TimingManager : MonoBehaviour
         Debug.Log("Miss");
     }
 
-    // public void CrashCheckTiming()
-    // {
-    //     //crash
-    //     for(int i=0; i<CrashNoteList.Count; i++)
-    //     {
-    //         float t_notePosX = CrashNoteList[i].transform.localPosition.x;
+    public void CrashCheckTiming()
+    {
+        //crash
+        for(int i=0; i<CrashNoteList.Count; i++)
+        {
+            float t_notePosX = CrashNoteList[i].transform.localPosition.x;
 
-    //         for(int x = 0; x < timingBoxs.Length; x++)
-    //         {
-    //             if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
-    //             {
-    //                 CrashNoteList[i].GetComponent<Note>().HideNote();
-    //                 if(x<timingBoxs.Length -1)
-    //                     theEffect.CrashHitEffect();
-    //                 CrashNoteList.RemoveAt(i);
-    //                 Debug.Log("Hit"+ x);
-    //                 return;
+            for(int x = 0; x < timingBoxs.Length; x++)
+            {
+                if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
+                {
+                    CrashNoteList[i].GetComponent<Note>().HideNote();
+                    if(x<timingBoxs.Length -1)
+                        theEffect.CrashHitEffect();
+                    CrashNoteList.RemoveAt(i);
+                    Debug.Log("Hit"+ x);
+                    return;
 
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("Miss");
-    // }
+                }
+            }
+        }
+        Debug.Log("Miss");
+    }
 
-    // public void HighTomCheckTiming()
-    // {
-    //     //hitom
-    //     for(int i=0; i<HighTomNoteList.Count; i++)
-    //     {
-    //         float t_notePosX = HighTomNoteList[i].transform.localPosition.x;
+    public void HighTomCheckTiming()
+    {
+        //hitom
+        for(int i=0; i<HighTomNoteList.Count; i++)
+        {
+            float t_notePosX = HighTomNoteList[i].transform.localPosition.x;
 
-    //         for(int x = 0; x < timingBoxs.Length; x++)
-    //         {
-    //             if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
-    //             {
-    //                 HighTomNoteList[i].GetComponent<Note>().HideNote();
-    //                 if(x<timingBoxs.Length -1)
-    //                     theEffect.HighTomHitEffect();
-    //                 HighTomNoteList.RemoveAt(i);
-    //                 Debug.Log("Hit"+ x);
-    //                 return;
+            for(int x = 0; x < timingBoxs.Length; x++)
+            {
+                if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
+                {
+                    HighTomNoteList[i].GetComponent<Note>().HideNote();
+                    if(x<timingBoxs.Length -1)
+                        theEffect.HighTomHitEffect();
+                    HighTomNoteList.RemoveAt(i);
+                    Debug.Log("Hit"+ x);
+                    return;
 
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("Miss");
-    // }
+                }
+            }
+        }
+        Debug.Log("Miss");
+    }
 
-    // public void MidTomCheckTiming()
-    // {
-    //     //midtom
-    //     for(int i=0; i<MidTomNoteList.Count; i++)
-    //     {
-    //         float t_notePosX = MidTomNoteList[i].transform.localPosition.x;
+    public void MidTomCheckTiming()
+    {
+        //midtom
+        for(int i=0; i<MidTomNoteList.Count; i++)
+        {
+            float t_notePosX = MidTomNoteList[i].transform.localPosition.x;
 
-    //         for(int x = 0; x < timingBoxs.Length; x++)
-    //         {
-    //             if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
-    //             {
-    //                 MidTomNoteList[i].GetComponent<Note>().HideNote();
-    //                 if(x<timingBoxs.Length -1)
-    //                     theEffect.MidTomHitEffect();
-    //                 MidTomNoteList.RemoveAt(i);
-    //                 Debug.Log("Hit"+ x);
-    //                 return;
+            for(int x = 0; x < timingBoxs.Length; x++)
+            {
+                if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
+                {
+                    MidTomNoteList[i].GetComponent<Note>().HideNote();
+                    if(x<timingBoxs.Length -1)
+                        theEffect.MidTomHitEffect();
+                    MidTomNoteList.RemoveAt(i);
+                    Debug.Log("Hit"+ x);
+                    return;
 
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("Miss");
-    // }
+                }
+            }
+        }
+        Debug.Log("Miss");
+    }
 
-    // public void LowTomCheckTiming()
-    // {
-    //     //lowtom
-    //     for(int i=0; i<LowTomNoteList.Count; i++)
-    //     {
-    //         float t_notePosX = LowTomNoteList[i].transform.localPosition.x;
+    public void LowTomCheckTiming()
+    {
+        //lowtom
+        for(int i=0; i<LowTomNoteList.Count; i++)
+        {
+            float t_notePosX = LowTomNoteList[i].transform.localPosition.x;
 
-    //         for(int x = 0; x < timingBoxs.Length; x++)
-    //         {
-    //             if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
-    //             {
-    //                 LowTomNoteList[i].GetComponent<Note>().HideNote();
-    //                 if(x<timingBoxs.Length -1)
-    //                     theEffect.LowTomHitEffect();
-    //                 LowTomNoteList.RemoveAt(i);
-    //                 Debug.Log("Hit"+ x);
-    //                 return;
+            for(int x = 0; x < timingBoxs.Length; x++)
+            {
+                if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
+                {
+                    LowTomNoteList[i].GetComponent<Note>().HideNote();
+                    if(x<timingBoxs.Length -1)
+                        theEffect.LowTomHitEffect();
+                    LowTomNoteList.RemoveAt(i);
+                    Debug.Log("Hit"+ x);
+                    return;
 
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("Miss");
-    // }
+                }
+            }
+        }
+        Debug.Log("Miss");
+    }
 
-    // public void RideCheckTiming()
-    // {
-    //     //ride
-    //     for(int i=0; i<RideNoteList.Count; i++)
-    //     {
-    //         float t_notePosX = RideNoteList[i].transform.localPosition.x;
+    public void RideCheckTiming()
+    {
+        //ride
+        for(int i=0; i<RideNoteList.Count; i++)
+        {
+            float t_notePosX = RideNoteList[i].transform.localPosition.x;
 
-    //         for(int x = 0; x < timingBoxs.Length; x++)
-    //         {
-    //             if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
-    //             {
-    //                 RideNoteList[i].GetComponent<Note>().HideNote();
-    //                 if(x<timingBoxs.Length -1)
-    //                     theEffect.RideHitEffect();
-    //                 RideNoteList.RemoveAt(i);
-    //                 Debug.Log("Hit"+ x);
-    //                 return;
+            for(int x = 0; x < timingBoxs.Length; x++)
+            {
+                if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
+                {
+                    RideNoteList[i].GetComponent<Note>().HideNote();
+                    if(x<timingBoxs.Length -1)
+                        theEffect.RideHitEffect();
+                    RideNoteList.RemoveAt(i);
+                    Debug.Log("Hit"+ x);
+                    return;
 
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("Miss");
-    // }
+                }
+            }
+        }
+        Debug.Log("Miss");
+    }
 
     public void BaseCheckTiming()
     {
