@@ -9,7 +9,6 @@ def recognition(image, staves, objects):
     beats = []  # 박자 리스트
     pitches = []  # 음이름 리스트
 
-    print('in recognition function', objects)
     for i in range(0, len(objects)):
         obj = objects[i]
         line = obj[0]
@@ -39,7 +38,6 @@ def recognition(image, staves, objects):
 def object_analysis(image, objects):
     for obj in objects:
         stats = obj[1]
-        print('object_analysis', obj)
         stems = fs.stem_detection(image, stats, 67)  # 객체 내의 모든 직선들을 검출함
         direction = None
         if len(stems) > 0:  # 직선이 1개 이상 존재함

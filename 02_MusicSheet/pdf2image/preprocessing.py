@@ -25,7 +25,6 @@ def rmNoise(image):
             count += 1
             # 드럼 악보만 마스킹
             if (count % 2) == 0:
-                print(count)
                 cv2.rectangle(mask, (x, y, w, h), (255, 0, 0), -1)  # 사각형 그리기
 
     masked_image = cv2.bitwise_and(image, mask)  # 보표 영역 추출

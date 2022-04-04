@@ -27,7 +27,6 @@ def recognize_key(image, staves, stats):
 
 def recognize_note(image, staff, stats, stems, direction):
     x, y, w, h, area = stats
-    print('recognize_note', stems)
     if len(stems):
         fs.put_text(image, w, (x, y + h + fs.weighted(30)))
         fs.put_text(image, h, (x, y + h + fs.weighted(60)))
