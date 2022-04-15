@@ -1,7 +1,7 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/56003992/138816338-49083cd9-569a-4f34-b001-ba6584ae2a2e.png"  width="380" height="260"></p>
  
 **Schedule: [Trello](https://trello.com/b/JNV0cOVH/2022-캡스톤-디자인)**<br>
-**Manage Tool: [Notion](https://www.notion.so/7c8c7486bb58445e9a5a1155db8f7817)**
+**Manage Tool: [Notion](https://www.notion.so/7c8c7486bb58445e9a5a1155db8f7817)**  
 **Back-End Repository**: [codynators-backend](https://github.com/khsexk/codynators-backend)
 &nbsp;
 &nbsp;
