@@ -46,6 +46,10 @@
 
 * * *
 
+> **System Configuration🧑🏻‍💻**
+
+<img src='./01_Documents/design.png'>
+
 > **Skill Stack 🛠**
 
 - **FRAMWORK**
