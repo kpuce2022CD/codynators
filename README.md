@@ -2,6 +2,7 @@
  
 **Schedule: [Trello](https://trello.com/b/JNV0cOVH/2022-캡스톤-디자인)**<br>
 **Manage Tool: [Notion](https://www.notion.so/7c8c7486bb58445e9a5a1155db8f7817)**
+**Back-End Repository**: [codynators-backend](https://github.com/khsexk/codynators-backend)
 &nbsp;
 &nbsp;
 &nbsp;
