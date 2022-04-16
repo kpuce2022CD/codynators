@@ -6,21 +6,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.codrum.Dialog.LoadingDaialog
-import com.example.codrum.MainActivity
 import com.example.codrum.databinding.FragmentUploadBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.*
 import org.jetbrains.anko.support.v4.toast
 
 class UploadFragment: Fragment() {
@@ -47,16 +43,7 @@ class UploadFragment: Fragment() {
             startActivityForResult(photoPickerIntent,pickImageFromAlbum)
         }
         binding.btnUpload.setOnClickListener {
-            val dialog = LoadingDaialog(binding.root.context)
-
-            CoroutineScope(Dispatchers.Main).launch {
-                dialog.show()
-                withContext(Dispatchers.IO) {
-                    imageUpload()
-                }
-                delay(3500L)
-                dialog.dismiss()
-            }
+            imageUpload()
         }
         return binding.root
     }
@@ -79,10 +66,13 @@ class UploadFragment: Fragment() {
     }
 
     private fun imageUpload(){
+        val dialog = LoadingDaialog(binding.root.context)
+        dialog.show()
         var imgFileName = binding.editSongName.text.toString() + "_.jpg"
         var storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
         storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
             toast("업로드 완료")
+            dialog.dismiss()
         }
     }
 }
