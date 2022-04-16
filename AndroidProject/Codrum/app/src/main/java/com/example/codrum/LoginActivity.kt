@@ -35,22 +35,11 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             if(isValidate()){
-
-                val dialog = LoadingDaialog(this)
-
                 Log.d("valid","enter the block")
                 val email = binding.tilEmail.editText?.text.toString()
                 val password = binding.tilPasswd.editText?.text.toString()
                 Log.d("valid","email = $email, password = $password")
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    dialog.show()
-                    val fbSignIn = withContext(Dispatchers.IO){
-                        signIn(email,password)
-                    }
-                    delay(1000L)
-                    dialog.dismiss()
-                }
+                signIn(email,password)
             }else{
                 return@setOnClickListener
             }
@@ -66,15 +55,18 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signIn(email : String, password: String){
         Log.d("signIn","signIn start")
-
+        val dialog = LoadingDaialog(this)
+        dialog.show()
         auth?.signInWithEmailAndPassword(email, password)
             ?.addOnCompleteListener(this) { task ->
                 if(task.isSuccessful){
+                    dialog.dismiss()
                     toast("로그인 성공")
                     goMain(auth?.currentUser)
                     Log.d("signIn","signIn Success")
                 }else{
                     Log.d("signIn","signIn Failed")
+                    dialog.dismiss()
                     toast("로그인 실패")
                 }
             }
