@@ -9,7 +9,12 @@
         android:icon="@drawable/ic_baseline_profile"
         android:title="프로필"/>
     <item
+        android:id="@+id/menu_addSong"
+        android:icon="@drawable/ic_baseline_photo"
+        android:title="곡 추가"/>
+    <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/ic_baseline_logout"
         android:title="로그아웃"/>
+
 </menu>

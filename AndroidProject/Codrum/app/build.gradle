@@ -39,6 +39,8 @@ android {
 
 dependencies {
 
+    def lifecycle_version = "2.5.0-alpha06"
+
     // Material Library
     implementation 'com.google.android.material:material:1.2.1'
 
@@ -57,6 +59,12 @@ dependencies {
 
     // Anko
     implementation "org.jetbrains.anko:anko:0.10.8"
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
