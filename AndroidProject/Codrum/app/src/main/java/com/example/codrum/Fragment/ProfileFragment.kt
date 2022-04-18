@@ -34,13 +34,7 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater,container,false)
 
-        musicItem.add(Music("연습 1"))
-        musicItem.add(Music("연습 2"))
-        musicItem.add(Music("연습 3"))
-        musicItem.add(Music("연습 4"))
-        musicItem.add(Music("연습 5"))
-        initRecyclerMusic(this.requireContext())
-
+        initMusic()
         binding.btnRenew.setOnClickListener {
             renewMusic()
         }
@@ -68,6 +62,22 @@ class ProfileFragment : Fragment() {
                 }else{
                     musicItem.add(Music(c.key.toString()))
                 }
+            }
+            dialog.dismiss()
+            initRecyclerMusic(this.requireContext())
+        }
+    }
+    private fun initMusic(){
+        val dialog = LoadingDialog(binding.root.context)
+        dialog.show()
+        musicItem.add(Music("연습 1"))
+        musicItem.add(Music("연습 2"))
+        musicItem.add(Music("연습 3"))
+        musicItem.add(Music("연습 4"))
+        musicItem.add(Music("연습 5"))
+        fbRdb.getReference(userUID).get().addOnSuccessListener {
+            for (c in it.children){
+                musicItem.add(Music(c.key.toString()))
             }
             dialog.dismiss()
             initRecyclerMusic(this.requireContext())
