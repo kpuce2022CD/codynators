@@ -35,19 +35,18 @@ class RegisterActivity : AppCompatActivity() {
 
             if(isValidate())
             {
-                val dialog = LoadingDaialog(this)
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    dialog.show()
-                    var fbRegister = withContext(Dispatchers.IO){
-                        register(email,passwd,name)
-                    }
-                    delay(1000L)
-                    dialog.dismiss()
-                    finish()
-                }
-
-
+                register(email,passwd,name)
+//                val dialog = LoadingDaialog(this)
+//
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    dialog.show()
+//                    var fbRegister = withContext(Dispatchers.IO){
+//                        register(email,passwd,name)
+//                    }
+//                    delay(1000L)
+//                    dialog.dismiss()
+//                    finish()
+//                }
             }else{
                 return@setOnClickListener
             }
@@ -103,7 +102,9 @@ class RegisterActivity : AppCompatActivity() {
         return false
     }
 
-    private suspend fun register(email: String, password : String, name : String) {
+    private fun register(email: String, password : String, name : String) {
+        val dialog = LoadingDaialog(this)
+        dialog.show()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -116,10 +117,13 @@ class RegisterActivity : AppCompatActivity() {
                         .set(data)
                         .addOnSuccessListener { Log.d("Firestore","Success to writing data") }
                         .addOnFailureListener { e -> Log.w("Firestore","Fail to writing data",e)}
+                    dialog.dismiss()
                     toast("계정 생성 완료")
+                    finish()
                     Log.d("auth", "createUserWithEmail:success")
                 } else {
                     // If sign in fails, display a message to the user.
+                    dialog.dismiss()
                     Log.w("auth", "createUserWithEmail:failure", task.exception)
                 }
             }
