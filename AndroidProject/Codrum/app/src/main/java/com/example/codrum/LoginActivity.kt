@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.codrum.Dialog.LoadingDaialog
+import com.example.codrum.Dialog.LoadingDialog
 import com.example.codrum.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signIn(email : String, password: String){
         Log.d("signIn","signIn start")
-        val dialog = LoadingDaialog(this)
+        val dialog = LoadingDialog(this)
         dialog.show()
         auth?.signInWithEmailAndPassword(email, password)
             ?.addOnCompleteListener(this) { task ->

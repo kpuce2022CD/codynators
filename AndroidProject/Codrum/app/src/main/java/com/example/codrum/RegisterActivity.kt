@@ -3,7 +3,7 @@ package com.example.codrum
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.codrum.Dialog.LoadingDaialog
+import com.example.codrum.Dialog.LoadingDialog
 import com.example.codrum.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -103,7 +103,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun register(email: String, password : String, name : String) {
-        val dialog = LoadingDaialog(this)
+        val dialog = LoadingDialog(this)
         dialog.show()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -113,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
                         "name" to name,
                         "uid" to user?.uid.toString()
                     )
-                    db.collection("User").document(name)
+                    db.collection("User").document(user?.uid.toString())
                         .set(data)
                         .addOnSuccessListener { Log.d("Firestore","Success to writing data") }
                         .addOnFailureListener { e -> Log.w("Firestore","Fail to writing data",e)}
