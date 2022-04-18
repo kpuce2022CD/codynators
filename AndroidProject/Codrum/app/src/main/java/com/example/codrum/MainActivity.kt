@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.codrum.Fragment.HomeFragment
 import com.example.codrum.Fragment.ProfileFragment
 import com.example.codrum.Fragment.UploadFragment
+import com.example.codrum.ViewModel.MainViewModel
 import com.example.codrum.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
