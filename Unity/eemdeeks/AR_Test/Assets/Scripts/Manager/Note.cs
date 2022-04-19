@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    public float noteSpeed = 300;
+    public float noteSpeed = 100;
     UnityEngine.UI.Image noteImage;
 
     // Start is called before the first frame update
