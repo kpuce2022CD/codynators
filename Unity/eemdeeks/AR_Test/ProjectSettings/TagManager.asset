@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Note
+  - HitHat
+  - Snare
+  - Crash
+  - HighTom
+  - MidTom
+  - LowTom
+  - Ride
+  - Base
+  - HiHat
   layers:
   - Default
   - TransparentFX
