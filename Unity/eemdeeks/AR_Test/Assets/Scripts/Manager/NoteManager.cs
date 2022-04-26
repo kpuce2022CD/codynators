@@ -22,7 +22,6 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField] Transform tfHiHatNoteAppear = null; //HiHat노트가 생성될 위치 변수
     [SerializeField] GameObject goHiHatNote = null; //HiHat노트 prefab을 담을 변수
-    [SerializeField] ParticleSystem effectPart = null;
 
     [SerializeField] Transform tfSnareNoteAppear = null; //Snare노트가 생성될 위치 변수
     [SerializeField] GameObject goSnareNote = null; //Sanre노트 prefab을 담을 변수
@@ -129,8 +128,6 @@ public class NoteManager : MonoBehaviour
                 //Debug.Log("하이앳 생성");       
                 t_noteHitHat.transform.SetParent(this.transform);
                 theTimingManager.HitHatNoteList.Add(t_noteHitHat);
-
-                effectPlay();
             }
 
             if (note[1][index] == 1)
@@ -250,9 +247,5 @@ public class NoteManager : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-    public void effectPlay()
-    {
-        
-        effectPart.Play();
-    }
+ 
 }
