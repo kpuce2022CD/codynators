@@ -10,6 +10,8 @@ public class NoteManager : MonoBehaviour
 
     public string song;
 
+    public bool ImageTarget; //드럼 인식되고 있는가? => 되고 있으면 true
+
     int index = 0;
     int madi = 1;
 
@@ -115,90 +117,94 @@ public class NoteManager : MonoBehaviour
     void Update()
     {
 
-        currentTime += Time.deltaTime; //1초씩 증가
-
-        // int [,] list =new int[3,4] {{1,1,1,1},{0,0,1,0},{1,0,1,0}};
-
-
-        if (currentTime >= 60d / bpm) //ex bpm이 120이면 0.5초당 노트가 하나씩
+        if (ImageTarget)
         {
-            if (note[0][index] == 1)
+            currentTime += Time.deltaTime; //1초씩 증가
+
+            // int [,] list =new int[3,4] {{1,1,1,1},{0,0,1,0},{1,0,1,0}};
+
+
+            if (currentTime >= 60d / bpm) //ex bpm이 120이면 0.5초당 노트가 하나씩
             {
-                GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("하이앳 생성");       
-                t_noteHitHat.transform.SetParent(this.transform);
-                theTimingManager.HitHatNoteList.Add(t_noteHitHat);
+                if (note[0][index] == 1)
+                {
+                    GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                         //Debug.Log("하이앳 생성");       
+                    t_noteHitHat.transform.SetParent(this.transform);
+                    theTimingManager.HitHatNoteList.Add(t_noteHitHat);
+                }
+
+                if (note[1][index] == 1)
+                {
+                    GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                        //Debug.Log("스네어 생성");
+                    t_noteSnare.transform.SetParent(this.transform);
+                    theTimingManager.SnareNoteList.Add(t_noteSnare);
+                }
+
+                if (note[2][index] == 1)
+                {
+                    GameObject t_noteCrash = Instantiate(goCrashNote, tfCrashNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                        //Debug.Log("크래시 생성");
+                    t_noteCrash.transform.SetParent(this.transform);
+                    theTimingManager.CrashNoteList.Add(t_noteCrash);
+                }
+
+                if (note[3][index] == 1)
+                {
+                    GameObject t_noteHighTom = Instantiate(goHighTomNote, tfHighTomNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                              //Debug.Log("하이톰 생성");       
+                    t_noteHighTom.transform.SetParent(this.transform);
+                    theTimingManager.HighTomNoteList.Add(t_noteHighTom);
+                }
+
+                if (note[4][index] == 1)
+                {
+                    GameObject t_noteMidTom = Instantiate(goMidTomNote, tfMidTomNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                           //Debug.Log("미드톰 생성");       
+                    t_noteMidTom.transform.SetParent(this.transform);
+                    theTimingManager.MidTomNoteList.Add(t_noteMidTom);
+                }
+
+                if (note[5][index] == 1)
+                {
+                    GameObject t_noteLowTom = Instantiate(goLowTomNote, tfLowTomNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                           //Debug.Log("로우톰 생성");       
+                    t_noteLowTom.transform.SetParent(this.transform);
+                    theTimingManager.LowTomNoteList.Add(t_noteLowTom);
+                }
+
+                if (note[6][index] == 1)
+                {
+                    GameObject t_noteRide = Instantiate(goRideNote, tfRideNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                     //Debug.Log("라이드 생성");       
+                    t_noteRide.transform.SetParent(this.transform);
+                    theTimingManager.RideNoteList.Add(t_noteRide);
+                }
+
+                if (note[7][index] == 1)
+                {
+                    GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
+                                                                                                                     //Debug.Log("베이스 생성");       
+                    t_noteBase.transform.SetParent(this.transform);
+                    theTimingManager.BaseNoteList.Add(t_noteBase);
+                }
+
+                currentTime -= 60d / bpm; //소수점 오차고려
+                index++;
+                if (index == column)
+                {
+                    madi++;
+                    index = 0;
+                }
             }
 
-            if (note[1][index] == 1)
+            if (madi == 30)
             {
-                GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("스네어 생성");
-                t_noteSnare.transform.SetParent(this.transform);
-                theTimingManager.SnareNoteList.Add(t_noteSnare);
-            }
-
-            if (note[2][index] == 1)
-            {
-                GameObject t_noteCrash = Instantiate(goCrashNote, tfCrashNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("크래시 생성");
-                t_noteCrash.transform.SetParent(this.transform);
-                theTimingManager.CrashNoteList.Add(t_noteCrash);
-            }
-
-            if (note[3][index] == 1)
-            {
-                GameObject t_noteHighTom = Instantiate(goHighTomNote, tfHighTomNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("하이톰 생성");       
-                t_noteHighTom.transform.SetParent(this.transform);
-                theTimingManager.HighTomNoteList.Add(t_noteHighTom);
-            }
-
-            if (note[4][index] == 1)
-            {
-                GameObject t_noteMidTom = Instantiate(goMidTomNote, tfMidTomNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("미드톰 생성");       
-                t_noteMidTom.transform.SetParent(this.transform);
-                theTimingManager.MidTomNoteList.Add(t_noteMidTom);
-            }
-
-            if (note[5][index] == 1)
-            {
-                GameObject t_noteLowTom = Instantiate(goLowTomNote, tfLowTomNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("로우톰 생성");       
-                t_noteLowTom.transform.SetParent(this.transform);
-                theTimingManager.LowTomNoteList.Add(t_noteLowTom);
-            }
-
-            if (note[6][index] == 1)
-            {
-                GameObject t_noteRide = Instantiate(goRideNote, tfRideNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("라이드 생성");       
-                t_noteRide.transform.SetParent(this.transform);
-                theTimingManager.RideNoteList.Add(t_noteRide);
-            }
-
-            if (note[7][index] == 1)
-            {
-                GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // 노트 생성
-                //Debug.Log("베이스 생성");       
-                t_noteBase.transform.SetParent(this.transform);
-                theTimingManager.BaseNoteList.Add(t_noteBase);
-            }
-
-            currentTime -= 60d / bpm; //소수점 오차고려
-            index++;
-            if (index == column)
-            {
-                madi++;
-                index = 0;
+                //종료시키기
             }
         }
-
-        if (madi == 30)
-        {
-            //종료시키기
-        }
+        
     }
 
 
@@ -248,4 +254,12 @@ public class NoteManager : MonoBehaviour
         }
     }
  
+    public void OnTarget()
+    {
+        ImageTarget = true;
+    }
+    public void OffTarget()
+    {
+        ImageTarget = false;
+    }
 }
