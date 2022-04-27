@@ -15,7 +15,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.codrum.Dialog.LoadingDialog
 import com.example.codrum.IO.RetrofitClass
-import com.example.codrum.IO.Song
+import com.example.codrum.Model.Song
 import com.example.codrum.databinding.FragmentUploadBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -88,7 +88,8 @@ class UploadFragment: Fragment() {
             dialog.dismiss()
         }
 
-        RetrofitClass.retrofitService.putSong(userUID,binding.editSongName.text.toString()).enqueue(object : Callback<Song>{
+        val song = Song(userUID,binding.editSongName.text.toString())
+        RetrofitClass.retrofitService.putSong(song).enqueue(object : Callback<Song>{
             override fun onResponse(call: Call<Song>, response: Response<Song>) {
                 when(response!!.code()){
                     200 -> {
@@ -97,6 +98,7 @@ class UploadFragment: Fragment() {
                     405 -> {
                         Log.d("api","method error")}
                     500 -> {
+                        Log.d("제이슨",call.toString())
                         Log.d("api","server error")
                     }
                 }

@@ -11,6 +11,7 @@ object RetrofitClass {
 
     lateinit var retrofitService : IRetrofit
 
+    val BASE_URL = "http://ec2-3-35-209-32.ap-northeast-2.compute.amazonaws.com:443/"
     init {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -21,7 +22,7 @@ object RetrofitClass {
 
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("15.165.148.101:443")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(logger)
             .build()
