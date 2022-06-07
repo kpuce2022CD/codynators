@@ -4,26 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.codrum.Dialog.LoadingDialog
+import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
-    private var auth : FirebaseAuth? = null
+    private var auth: FirebaseAuth? = null
 
-    private var _binding : ActivityLoginBinding?= null
+    private var _binding: ActivityLoginBinding? = null
     private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("life","onCreate")
+        Log.d("life", "onCreate")
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -34,13 +33,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            if(isValidate()){
-                Log.d("valid","enter the block")
+            if (isValidate()) {
+                Log.d("valid", "enter the block")
                 val email = binding.tilEmail.editText?.text.toString()
                 val password = binding.tilPasswd.editText?.text.toString()
-                Log.d("valid","email = $email, password = $password")
-                signIn(email,password)
-            }else{
+                Log.d("valid", "email = $email, password = $password")
+                signIn(email, password)
+            } else {
                 return@setOnClickListener
             }
         }
@@ -49,23 +48,23 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        Log.d("life","onStart")
+        Log.d("life", "onStart")
         goMain(auth?.currentUser)
     }
 
-    private fun signIn(email : String, password: String){
-        Log.d("signIn","signIn start")
+    private fun signIn(email: String, password: String) {
+        Log.d("signIn", "signIn start")
         val dialog = LoadingDialog(this)
         dialog.show()
         auth?.signInWithEmailAndPassword(email, password)
             ?.addOnCompleteListener(this) { task ->
-                if(task.isSuccessful){
+                if (task.isSuccessful) {
                     dialog.dismiss()
                     toast("로그인 성공")
                     goMain(auth?.currentUser)
-                    Log.d("signIn","signIn Success")
-                }else{
-                    Log.d("signIn","signIn Failed")
+                    Log.d("signIn", "signIn Success")
+                } else {
+                    Log.d("signIn", "signIn Failed")
                     dialog.dismiss()
                     toast("로그인 실패")
                 }
@@ -74,47 +73,47 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //유효성 검사
-    private fun isValidate() : Boolean {
-        val email : String = binding.tilEmail.editText?.text.toString()
+    private fun isValidate(): Boolean {
+        val email: String = binding.tilEmail.editText?.text.toString()
         val pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        val passwd : String = binding.tilPasswd.editText?.text.toString()
+        val passwd: String = binding.tilPasswd.editText?.text.toString()
 
         var count = 0
         // 이메일 유효성
         if (email.isEmpty()) {
             binding.tilEmail.error = "이메일을 입력해 주세요."
-        } else if (!email.matches(pattern.toRegex())){
+        } else if (!email.matches(pattern.toRegex())) {
             binding.tilEmail.error = "이메일 형식을 맞추어주세요."
-        } else{
+        } else {
             binding.tilEmail.error = null
             binding.tilEmail.isErrorEnabled = false
             count++
         }
 
         //비밀번호 유효성 검사
-        if(passwd.isEmpty()){
+        if (passwd.isEmpty()) {
             binding.tilPasswd.error = "비밀번호를 입력해 주세요."
-        }else if(passwd.length<6){
+        } else if (passwd.length < 6) {
             binding.tilPasswd.error = "최소 6자리 이상입니다."
-        }else{
+        } else {
             binding.tilPasswd.error = null
             binding.tilPasswd.isErrorEnabled = false
             count++
         }
 
-        if(count == 2) return true
+        if (count == 2) return true
 
         return false
     }
 
-    fun goMain(user: FirebaseUser?){
-        Log.d("goMain","goMain start")
-        if(user!= null){
-            Log.d("goMain","current user = ${user.toString()}")
-            startActivity(Intent(this,MainActivity::class.java))
+    fun goMain(user: FirebaseUser?) {
+        Log.d("goMain", "goMain start")
+        if (user != null) {
+            Log.d("goMain", "current user = ${user.toString()}")
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }else{
-            Log.d("goMain","User not exist")
+        } else {
+            Log.d("goMain", "User not exist")
         }
     }
 

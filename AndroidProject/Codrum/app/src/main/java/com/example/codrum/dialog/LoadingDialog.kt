@@ -1,4 +1,4 @@
-package com.example.codrum.Dialog
+package com.example.codrum.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,9 +6,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import com.example.codrum.R
 
-class LoadingDialog constructor(context : Context) : Dialog(context) {
+class LoadingDialog constructor(context: Context) : Dialog(context) {
 
-    init{
+    init {
         setCanceledOnTouchOutside(false)
 
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

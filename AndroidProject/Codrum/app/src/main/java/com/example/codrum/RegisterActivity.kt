@@ -1,20 +1,19 @@
 package com.example.codrum
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.codrum.Dialog.LoadingDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity() {
 
-    private var _binding : ActivityRegisterBinding? = null
+    private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
 
@@ -29,13 +28,12 @@ class RegisterActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.btnRegister.setOnClickListener {
-            val email : String = binding.tilEmail.editText?.text.toString()
-            val passwd : String = binding.tilPasswd.editText?.text.toString()
-            val name : String = binding.tilName.editText?.text.toString()
+            val email: String = binding.tilEmail.editText?.text.toString()
+            val passwd: String = binding.tilPasswd.editText?.text.toString()
+            val name: String = binding.tilName.editText?.text.toString()
 
-            if(isValidate())
-            {
-                register(email,passwd,name)
+            if (isValidate()) {
+                register(email, passwd, name)
 //                val dialog = LoadingDaialog(this)
 //
 //                CoroutineScope(Dispatchers.Main).launch {
@@ -47,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
 //                    dialog.dismiss()
 //                    finish()
 //                }
-            }else{
+            } else {
                 return@setOnClickListener
             }
         }
@@ -59,50 +57,50 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     // 형식 유효성 검사
-    private fun isValidate() : Boolean {
-        val email : String = binding.tilEmail.editText?.text.toString()
+    private fun isValidate(): Boolean {
+        val email: String = binding.tilEmail.editText?.text.toString()
         val pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        val passwd : String = binding.tilPasswd.editText?.text.toString()
-        val name : String = binding.tilName.editText?.text.toString()
+        val passwd: String = binding.tilPasswd.editText?.text.toString()
+        val name: String = binding.tilName.editText?.text.toString()
 
         var count = 0
         // 이메일 유효성
         if (email.isEmpty()) {
             binding.tilEmail.error = "이메일을 입력해 주세요."
-        } else if (!email.matches(pattern.toRegex())){
+        } else if (!email.matches(pattern.toRegex())) {
             binding.tilEmail.error = "이메일 형식을 맞추어주세요."
-        } else{
+        } else {
             binding.tilEmail.error = null
             binding.tilEmail.isErrorEnabled = false
             count++
         }
 
         //비밀번호 유효성 검사
-        if(passwd.isEmpty()){
+        if (passwd.isEmpty()) {
             binding.tilPasswd.error = "비밀번호를 입력해 주세요."
-        }else if(passwd.length<6){
+        } else if (passwd.length < 6) {
             binding.tilPasswd.error = "최소 6자리 이상입니다."
-        }else{
+        } else {
             binding.tilPasswd.error = null
             binding.tilPasswd.isErrorEnabled = false
             count++
         }
         //이름 유효성 검사
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             binding.tilName.error = "이름을 입력해 주세요."
-        }else if(name.length>10){
+        } else if (name.length > 10) {
             binding.tilName.error = "최대 10자리 입니다."
-        }else{
+        } else {
             binding.tilName.error = null
             binding.tilName.isErrorEnabled = false
             count++
         }
-        if(count == 3) return true
+        if (count == 3) return true
 
         return false
     }
 
-    private fun register(email: String, password : String, name : String) {
+    private fun register(email: String, password: String, name: String) {
         val dialog = LoadingDialog(this)
         dialog.show()
         auth.createUserWithEmailAndPassword(email, password)
@@ -115,8 +113,8 @@ class RegisterActivity : AppCompatActivity() {
                     )
                     db.collection("User").document(user?.uid.toString())
                         .set(data)
-                        .addOnSuccessListener { Log.d("Firestore","Success to writing data") }
-                        .addOnFailureListener { e -> Log.w("Firestore","Fail to writing data",e)}
+                        .addOnSuccessListener { Log.d("Firestore", "Success to writing data") }
+                        .addOnFailureListener { e -> Log.w("Firestore", "Fail to writing data", e) }
                     dialog.dismiss()
                     toast("계정 생성 완료")
                     finish()
