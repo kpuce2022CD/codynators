@@ -6,8 +6,8 @@
         android:title="홈"/>
     <item
         android:id="@+id/menu_profile"
-        android:icon="@drawable/ic_baseline_profile"
-        android:title="프로필"/>
+        android:icon="@drawable/ic_baseline_music_note"
+        android:title="곡 리스트"/>
     <item
         android:id="@+id/menu_addSong"
         android:icon="@drawable/ic_baseline_photo"

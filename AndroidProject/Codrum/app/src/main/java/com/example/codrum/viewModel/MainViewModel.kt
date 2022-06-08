@@ -1,5 +1,6 @@
 package com.example.codrum.viewModel
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -72,13 +74,19 @@ class MainViewModel @Inject constructor(
 
     }
 
-    fun putSong(song: Song) {
+    fun putSong(song: Song, name: String, storage: StorageReference?, uid: String, uri: Uri?) {
         _isLoading.value = true
         viewModelScope.launch {
             runCatching {
                 mainRepository.putSong(song)
             }.onSuccess {
-                _isLoading.value = false
+                val map = mapOf(
+                    "data" to ""
+                )
+                fbRdb.getReference(uid).child(name).setValue(map)
+                storage?.putFile(uri!!)?.addOnSuccessListener {
+                    renewSongList(uid)
+                }
             }.onFailure {
                 _isLoading.value = false
             }

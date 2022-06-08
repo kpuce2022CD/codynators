@@ -3,8 +3,8 @@ package com.example.codrum
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.databinding.ActivityRegisterBinding
+import com.example.codrum.dialog.LoadingDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

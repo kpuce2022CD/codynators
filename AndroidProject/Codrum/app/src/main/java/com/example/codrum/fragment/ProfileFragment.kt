@@ -36,6 +36,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         loadingDialog = LoadingDialog(requireActivity())
+        viewModel.renewSongList(userUID)
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.itemListMusic.adapter = adapter
         binding.btnRenew.setOnClickListener {

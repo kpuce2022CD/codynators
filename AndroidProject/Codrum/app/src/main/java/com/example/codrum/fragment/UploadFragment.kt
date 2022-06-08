@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.codrum.data.Song
 import com.example.codrum.databinding.FragmentUploadBinding
-import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.viewModel.MainViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -83,21 +82,23 @@ class UploadFragment : Fragment() {
     }
 
     private fun imageUpload() {
-        val dialog = LoadingDialog(binding.root.context)
-        dialog.show()
-        var imgFileName = binding.editSongName.text.toString() + "_.jpg"
-        var storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
-        val map = mapOf(
-            "data" to ""
-        )
-        rdb.getReference(userUID).child(binding.editSongName.text.toString()).setValue(map)
-        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
-            toast("업로드 완료")
-            dialog.dismiss()
-        }
-
+        val imgFileName = binding.editSongName.text.toString() + "_.jpg"
+        val storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
+//        val map = mapOf(
+//            "data" to ""
+//        )
+//        rdb.getReference(userUID).child(binding.editSongName.text.toString()).setValue(map)
+//        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
+//            toast("업로드 완료")
+//        }
         val song = Song(userUID, binding.editSongName.text.toString())
-        viewModel.putSong(song)
+        viewModel.putSong(
+            song,
+            binding.editSongName.text.toString(),
+            storageRef,
+            userUID,
+            uriPhoto
+        )
 
     }
 
