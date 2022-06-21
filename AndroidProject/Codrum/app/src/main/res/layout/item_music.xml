@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="songItem"
-        type="com.example.codrum.data.Song" />
+        <variable
+            name="songItem"
+            type="com.example.codrum.data.Song" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,9 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF">
+        android:layout_marginBottom="5dp">
 
         <ImageView
             android:id="@+id/imageView"

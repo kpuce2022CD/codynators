@@ -15,9 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,6 +33,8 @@ class MainViewModel @Inject constructor(
     @Inject
     lateinit var fbFireStore: FirebaseFirestore
 
+    var song = mainRepository.allSong
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -43,54 +43,54 @@ class MainViewModel @Inject constructor(
     val auth: FirebaseAuth?
         get() = _auth
 
-    private val practiceSong = mutableListOf<Song>().apply {
-        add(Song("연습모드", "연습 1"))
-        add(Song("연습모드", "연습 2"))
-        add(Song("연습모드", "연습 3"))
-        add(Song("연습모드", "연습 4"))
-        add(Song("연습모드", "연습 5"))
-    }
-
-    private val _songList = MutableStateFlow(practiceSong)
-    val songList: StateFlow<MutableList<Song>> = _songList.asStateFlow()
-
     fun getUserAuth(): FirebaseAuth? {
         _auth = Firebase.auth
         return auth
     }
 
-    fun renewSongList(uid: String) {
+/*    fun renewSongList(uid: String) {
         _isLoading.value = true
         fbRdb.getReference(uid).get().addOnSuccessListener {
             for (i in it.children) {
-                if (songList.value.any() { it.filename == i.key.toString() }) {
+                if (_songList.value!!.any() { it.filename == i.key.toString() }) {
                     continue
                 } else {
-                    songList.value.add(Song(uid, i.key.toString()))
+                    _songList.value!!.add(Song(uid, i.key.toString()))
                 }
             }
             _isLoading.value = false
         }
 
-    }
+    }*/
 
     fun putSong(song: Song, name: String, storage: StorageReference?, uid: String, uri: Uri?) {
-        _isLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isLoading.postValue(true)
             runCatching {
-                mainRepository.putSong(song)
+//                mainRepository.putSong(song)
             }.onSuccess {
                 val map = mapOf(
                     "data" to ""
                 )
                 fbRdb.getReference(uid).child(name).setValue(map)
                 storage?.putFile(uri!!)?.addOnSuccessListener {
-                    renewSongList(uid)
+//                    renewSongList(uid)
+                    insertSong(song)
+                    _isLoading.postValue(false)
                 }
             }.onFailure {
-                _isLoading.value = false
+                _isLoading.postValue(false)
+            }.also {
+                _isLoading.postValue(false)
             }
         }
     }
 
+    private fun insertSong(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+        mainRepository.insert(song)
+    }
+
+    fun deleteSong(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+        mainRepository.delete(song)
+    }
 }

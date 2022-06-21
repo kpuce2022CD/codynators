@@ -3,18 +3,14 @@
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/ic_baseline_home"
-        android:title="홈"/>
-    <item
-        android:id="@+id/menu_profile"
-        android:icon="@drawable/ic_baseline_music_note"
-        android:title="곡 리스트"/>
+        android:title="홈" />
     <item
         android:id="@+id/menu_addSong"
         android:icon="@drawable/ic_baseline_photo"
-        android:title="곡 추가"/>
+        android:title="곡 추가" />
     <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/ic_baseline_logout"
-        android:title="로그아웃"/>
+        android:title="로그아웃" />
 
 </menu>

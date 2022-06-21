@@ -6,13 +6,20 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.codrum.R
-import com.example.codrum.adapter.InfiniteAdapter
+import com.example.codrum.data.Song
 import com.example.codrum.databinding.FragmentHomeBinding
+import com.example.codrum.dialog.LoadingDialog
+import com.example.codrum.view.adapter.InfiniteAdapter
+import com.example.codrum.view.adapter.MusicAdapter
 import com.example.codrum.viewModel.MainViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,9 +28,16 @@ class HomeFragment : Fragment() {
     private var currentPosition = Int.MAX_VALUE / 2
     lateinit var binding: FragmentHomeBinding
     private var myHandler = MyHandler()
-    private val intervalTime = 1500.toLong()
+    private val intervalTime = 3000.toLong()
+    val userUID = Firebase.auth.currentUser?.uid.toString()
+
+    private val adapter = MusicAdapter(itemClickListener = {
+        doOnClick(it)
+    })
 
     private val viewModel: MainViewModel by activityViewModels()
+
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,11 +60,14 @@ class HomeFragment : Fragment() {
                 }
             })
         }
+        loadingDialog = LoadingDialog(requireActivity())
+        binding.itemListMusic.adapter = adapter
+        subscribeToObservables()
         return binding.root
     }
 
     private fun getBannerList(): ArrayList<Int> {
-        return arrayListOf(R.drawable.banner1, R.drawable.banner2, R.drawable.banner3)
+        return arrayListOf(R.drawable.find1, R.drawable.find2, R.drawable.start)
     }
 
     private fun autoScrollStart(intervalTime: Long) {
@@ -84,4 +101,31 @@ class HomeFragment : Fragment() {
         super.onPause()
         autoScrollStop()
     }
+
+    private fun subscribeToObservables() {
+        viewModel.song.observe(requireActivity()) { song ->
+            song?.let { adapter.submitList(song.toList()) }
+        }
+        viewModel.isLoading.observe(requireActivity()) { loading ->
+            showLoading(loading)
+        }
+    }
+
+    private fun showLoading(loading: Boolean) {
+        if (loading) loadingDialog.show() else loadingDialog.dismiss()
+    }
+
+    private fun doOnClick(item: Song) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle(item.filename)
+            .setPositiveButton("시작하기") { _, _ ->
+                //startActivity 여기
+            }.setNegativeButton("취소") { _, _ ->
+            }.setNeutralButton("삭제하기") { _, _ ->
+                viewModel.deleteSong(item)
+            }
+            .create()
+            .show()
+    }
+
 }
