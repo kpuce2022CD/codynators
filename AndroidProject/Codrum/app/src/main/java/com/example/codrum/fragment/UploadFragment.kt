@@ -13,14 +13,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.codrum.data.Song
 import com.example.codrum.databinding.FragmentUploadBinding
+import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.viewModel.MainViewModel
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -31,12 +34,9 @@ class UploadFragment : Fragment() {
     var uriPhoto: Uri? = null
     var fbStorage: FirebaseStorage? = null
     val userUID = Firebase.auth.currentUser?.uid.toString()
-    private val rdb = Firebase.database
+
     private val viewModel: MainViewModel by activityViewModels()
-
-    val name: String = String().apply {
-
-    }
+    private lateinit var loadingDialog: LoadingDialog
 
     lateinit var binding: FragmentUploadBinding
 
@@ -45,9 +45,10 @@ class UploadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUploadBinding.inflate(inflater, container, false)
-
+        loadingDialog = LoadingDialog(requireActivity())
         fbStorage = FirebaseStorage.getInstance()
 
+        subscribeToObservables()
         binding.imgMusicScore.setOnClickListener {
             // Open Album
             var photoPickerIntent = Intent(Intent.ACTION_PICK)
@@ -62,7 +63,6 @@ class UploadFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == pickImageFromAlbum) {
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data
@@ -84,13 +84,6 @@ class UploadFragment : Fragment() {
     private fun imageUpload() {
         val imgFileName = binding.editSongName.text.toString() + "_.jpg"
         val storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
-//        val map = mapOf(
-//            "data" to ""
-//        )
-//        rdb.getReference(userUID).child(binding.editSongName.text.toString()).setValue(map)
-//        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
-//            toast("업로드 완료")
-//        }
         val song = Song(userUID, binding.editSongName.text.toString())
         viewModel.putSong(
             song,
@@ -102,4 +95,13 @@ class UploadFragment : Fragment() {
 
     }
 
+    private fun subscribeToObservables() {
+        viewModel.isLoading.observe(requireActivity()) { loading ->
+            showLoading(loading)
+        }
+    }
+
+    private fun showLoading(loading: Boolean) {
+        if (loading) loadingDialog.show() else loadingDialog.dismiss()
+    }
 }

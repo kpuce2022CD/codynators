@@ -1,4 +1,4 @@
-package com.example.codrum
+package com.example.codrum.view
 
 import android.os.Bundle
 import android.util.Log

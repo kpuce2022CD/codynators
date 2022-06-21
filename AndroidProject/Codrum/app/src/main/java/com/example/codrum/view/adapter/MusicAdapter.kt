@@ -1,4 +1,4 @@
-package com.example.codrum.adapter
+package com.example.codrum.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -32,7 +32,7 @@ class MusicAdapter(private val itemClickListener: (Song) -> Unit) :
 
         init {
             itemView.setOnClickListener {
-                binding.songItem?.run {
+                binding.songItem!!.run {
                     itemClickListener(this)
                 }
             }
@@ -48,7 +48,7 @@ class MusicAdapter(private val itemClickListener: (Song) -> Unit) :
     companion object {
         private val musicDiffUtil = object : DiffUtil.ItemCallback<Song>() {
             override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean =
-                oldItem.filename == newItem.filename
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Song, newItem: Song): Boolean =
                 oldItem == newItem

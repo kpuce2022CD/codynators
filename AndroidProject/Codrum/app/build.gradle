@@ -48,6 +48,8 @@ android {
 
 dependencies {
 
+    implementation project(':unityLibrary')
+
     def lifecycle_version = "2.5.0-alpha06"
 
     // Material Library
@@ -88,6 +90,15 @@ dependencies {
 
     // ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // Lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    // Room
+    def roomVersion = '2.4.2'
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.1'

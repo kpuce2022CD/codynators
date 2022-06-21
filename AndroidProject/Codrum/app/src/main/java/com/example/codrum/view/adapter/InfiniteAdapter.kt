@@ -1,4 +1,4 @@
-package com.example.codrum.adapter
+package com.example.codrum.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View

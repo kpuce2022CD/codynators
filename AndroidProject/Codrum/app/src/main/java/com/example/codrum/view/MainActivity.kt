@@ -1,4 +1,4 @@
-package com.example.codrum
+package com.example.codrum.view
 
 import android.Manifest
 import android.content.Intent
@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.codrum.R
 import com.example.codrum.databinding.ActivityMainBinding
 import com.example.codrum.fragment.HomeFragment
 import com.example.codrum.fragment.ProfileFragment
 import com.example.codrum.fragment.UploadFragment
 import com.example.codrum.viewModel.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         auth?.signOut()
+        finish()
     }
 
     private fun navigationItemSelect() {
@@ -58,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.menu_home -> replaceFragment(HomeFragment())
-                    R.id.menu_profile -> replaceFragment(ProfileFragment())
                     R.id.menu_addSong -> replaceFragment(UploadFragment())
                     R.id.menu_logout -> logout()
                 }
