@@ -262,4 +262,8 @@ public class NoteManager : MonoBehaviour
     {
         ImageTarget = false;
     }
+    public void setSong(string songTitle)
+    {
+        song = this->songTitle;
+    }
 }
