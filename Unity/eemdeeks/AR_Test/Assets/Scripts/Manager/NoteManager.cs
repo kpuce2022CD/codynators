@@ -199,7 +199,7 @@ public class NoteManager : MonoBehaviour
                 }
             }
 
-            if (madi == 30)
+            if (madi == 32)
             {
                 //종료시키기
             }
