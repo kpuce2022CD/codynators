@@ -27,11 +27,11 @@ class MainViewModel @Inject constructor(
     @Inject
     lateinit var fbRdb: FirebaseDatabase
 
-    @Inject
+  /*  @Inject
     lateinit var fbStorage: FirebaseStorage
 
     @Inject
-    lateinit var fbFireStore: FirebaseFirestore
+    lateinit var fbFireStore: FirebaseFirestore*/
 
     var song = mainRepository.allSong
 
@@ -74,7 +74,6 @@ class MainViewModel @Inject constructor(
                 )
                 fbRdb.getReference(uid).child(name).setValue(map)
                 storage?.putFile(uri!!)?.addOnSuccessListener {
-//                    renewSongList(uid)
                     insertSong(song)
                     _isLoading.postValue(false)
                 }
