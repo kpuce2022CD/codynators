@@ -53,5 +53,15 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/item_list_music"
             app:layout_constraintStart_toStartOf="@+id/item_list_music" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="녹음하기"
+            app:layout_constraintEnd_toEndOf="@+id/item_list_music"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

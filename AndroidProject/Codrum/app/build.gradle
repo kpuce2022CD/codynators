@@ -48,7 +48,7 @@ android {
 
 dependencies {
 
-    implementation project(':unityLibrary')
+ /*   implementation project(':unityLibrary')*/
 
     def lifecycle_version = "2.5.0-alpha06"
 

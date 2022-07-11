@@ -1,14 +1,16 @@
 package com.example.codrum.fragment
 
+import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.codrum.R
@@ -18,9 +20,8 @@ import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.view.adapter.InfiniteAdapter
 import com.example.codrum.view.adapter.MusicAdapter
 import com.example.codrum.viewModel.MainViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -29,7 +30,13 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private var myHandler = MyHandler()
     private val intervalTime = 3000.toLong()
-    val userUID = Firebase.auth.currentUser?.uid.toString()
+
+    private val recorder = MediaRecorder()
+    private val sdcard = Environment.getExternalStorageDirectory()
+    private val file = File(sdcard, "recorded.mp4")
+    private var filename = file.absolutePath
+
+    private var recordFlag = false
 
     private val adapter = MusicAdapter(itemClickListener = {
         doOnClick(it)
@@ -45,11 +52,18 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.viewpager.adapter = InfiniteAdapter(getBannerList())
-        binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        binding.viewpager.setCurrentItem(currentPosition, false)
+        initPager()
+        loadingDialog = LoadingDialog(requireActivity())
+        binding.itemListMusic.adapter = adapter
+        subscribeToObservables()
+        return binding.root
+    }
 
+    private fun initPager() {
         binding.viewpager.apply {
+            adapter = InfiniteAdapter(getBannerList())
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            setCurrentItem(currentPosition, false)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
@@ -60,10 +74,6 @@ class HomeFragment : Fragment() {
                 }
             })
         }
-        loadingDialog = LoadingDialog(requireActivity())
-        binding.itemListMusic.adapter = adapter
-        subscribeToObservables()
-        return binding.root
     }
 
     private fun getBannerList(): ArrayList<Int> {
@@ -94,6 +104,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         autoScrollStart(intervalTime)
+        stopRecord()
     }
 
     // 다른 페이지로 떠나있는 동안 스크롤이 동작할 필요는 없음. 정지
@@ -120,6 +131,9 @@ class HomeFragment : Fragment() {
             .setTitle(item.filename)
             .setPositiveButton("시작하기") { _, _ ->
                 //startActivity 여기
+                if(binding.switchRecord.isChecked){
+                    startRecord()
+                }
             }.setNegativeButton("취소") { _, _ ->
             }.setNeutralButton("삭제하기") { _, _ ->
                 viewModel.deleteSong(item)
@@ -128,4 +142,33 @@ class HomeFragment : Fragment() {
             .show()
     }
 
+    private fun startRecord() {
+        initRecorder(recorder)
+
+        recorder.setOutputFile(filename)
+        runCatching {
+            recorder.prepare()
+        }.onSuccess {
+            recorder.start()
+            recordFlag = true
+        }.onFailure { e ->
+            Log.d("record", "record: $e")
+        }
+    }
+
+    private fun initRecorder(recorder: MediaRecorder) {
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
+    }
+
+    private fun stopRecord() {
+        if(recordFlag){
+            recorder.apply {
+                stop()
+                release()
+            }
+            recordFlag = false
+        }
+    }
 }

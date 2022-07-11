@@ -11,12 +11,9 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.codrum.R
 import com.example.codrum.databinding.ActivityMainBinding
 import com.example.codrum.fragment.HomeFragment
-import com.example.codrum.fragment.ProfileFragment
 import com.example.codrum.fragment.UploadFragment
 import com.example.codrum.viewModel.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +37,10 @@ class MainActivity : AppCompatActivity() {
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             1
         )
-        supportFragmentManager.beginTransaction().replace(R.id.holder_fl_main,HomeFragment()).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.holder_fl_main, HomeFragment())
+            .commitAllowingStateLoss()
+
+
     }
 
     private fun replaceFragment(fragment: Fragment) {
