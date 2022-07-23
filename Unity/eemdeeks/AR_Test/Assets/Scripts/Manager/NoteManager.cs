@@ -264,6 +264,6 @@ public class NoteManager : MonoBehaviour
     }
     public void setSong(string songTitle)
     {
-        song = this->songTitle;
+        song = songTitle;
     }
 }
