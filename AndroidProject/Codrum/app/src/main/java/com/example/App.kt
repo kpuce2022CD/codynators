@@ -1,15 +1,18 @@
 package com.example
 
 import android.app.Application
+import com.example.shared.SharedPreferences
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App : Application(){
-    init{
-        instance = this
+class App : Application() {
+    companion object {
+        lateinit var prefs: SharedPreferences
     }
 
-    companion object{
-        lateinit var instance : App
+    override fun onCreate() {
+        prefs = SharedPreferences
+        prefs.initialize(this)
+        super.onCreate()
     }
 }
