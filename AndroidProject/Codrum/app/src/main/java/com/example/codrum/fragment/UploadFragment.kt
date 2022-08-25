@@ -16,6 +16,8 @@ import androidx.fragment.app.activityViewModels
 import com.example.codrum.databinding.FragmentUploadBinding
 import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.viewModel.MainViewModel
+import com.example.data.Song
+import com.example.data.Song.Companion.CUSTOM
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -80,7 +82,7 @@ class UploadFragment : Fragment() {
     private fun imageUpload() {
         val imgFileName = binding.editSongName.text.toString() + "_.jpg"
         val storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
-        val song = Song(userUID, binding.editSongName.text.toString())
+        val song = Song(CUSTOM, binding.editSongName.text.toString())
         viewModel.putSong(
             song,
             binding.editSongName.text.toString(),

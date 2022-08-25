@@ -1,5 +1,6 @@
 package com.example.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -24,4 +25,8 @@ object FirebaseModule {
     @Provides
     @Singleton
     fun provideFirebaseFireStore() = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 }

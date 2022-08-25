@@ -1,7 +1,6 @@
 package com.example.codrum.view
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -50,9 +49,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
         auth?.signOut()
         finish()
     }
