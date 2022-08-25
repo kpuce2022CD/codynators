@@ -11,4 +11,13 @@
     <string name="email_format_error">이메일 형식을 맞추어주세요.</string>
     <string name="password_format_error">비밀번호는 6~15자리 입니다.</string>
     <string name="name_format_error">이름은 2~10글자 입니다.</string>
+
+    <!-- 홈 -->
+    <string name="home">홈</string>
+    <string name="upload">곡 추가</string>
+    <string name="logout">로그아웃</string>
+    <string name="my_song">내 곡 목록</string>
+    <string name="record">녹음하기</string>
+    <string name="practice_list">연습곡 목록</string>
+
 </resources>

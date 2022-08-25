@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home"
-        android:title="홈" />
+        android:title="@string/home" />
     <item
-        android:id="@+id/menu_addSong"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_baseline_profile"
+        android:title="@string/my_song" />
+    <item
+        android:id="@+id/uploadFragment"
         android:icon="@drawable/ic_baseline_photo"
-        android:title="곡 추가" />
+        android:title="@string/upload" />
     <item
-        android:id="@+id/menu_logout"
+        android:id="@+id/logout"
         android:icon="@drawable/ic_baseline_logout"
-        android:title="로그아웃" />
+        android:title="@string/logout" />
 
 </menu>
