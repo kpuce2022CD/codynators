@@ -13,8 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import com.example.codrum.data.Song
 import com.example.codrum.databinding.FragmentUploadBinding
 import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.viewModel.MainViewModel
@@ -22,8 +20,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.jetbrains.anko.support.v4.toast
 
 

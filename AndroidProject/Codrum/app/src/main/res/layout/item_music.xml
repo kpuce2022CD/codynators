@@ -6,7 +6,7 @@
     <data>
         <variable
             name="songItem"
-            type="com.example.codrum.data.Song" />
+            type="com.example.data.Song" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.codrum.R
-import com.example.codrum.data.Song
 import com.example.codrum.databinding.FragmentHomeBinding
 import com.example.codrum.dialog.LoadingDialog
 import com.example.codrum.view.adapter.InfiniteAdapter

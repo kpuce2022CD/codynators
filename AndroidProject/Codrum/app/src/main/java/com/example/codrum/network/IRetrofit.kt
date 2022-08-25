@@ -1,6 +1,6 @@
 package com.example.codrum.network
 
-import com.example.codrum.data.Song
+import com.example.data.Song
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST

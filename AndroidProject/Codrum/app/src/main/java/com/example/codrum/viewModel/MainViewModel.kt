@@ -5,14 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.codrum.data.MainRepository
-import com.example.codrum.data.Song
+import com.example.data.MainRepository
+import com.example.data.Song
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,11 +25,11 @@ class MainViewModel @Inject constructor(
     @Inject
     lateinit var fbRdb: FirebaseDatabase
 
-  /*  @Inject
-    lateinit var fbStorage: FirebaseStorage
+    /*  @Inject
+      lateinit var fbStorage: FirebaseStorage
 
-    @Inject
-    lateinit var fbFireStore: FirebaseFirestore*/
+      @Inject
+      lateinit var fbFireStore: FirebaseFirestore*/
 
     var song = mainRepository.allSong
 

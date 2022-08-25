@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.codrum.data.Song
 import com.example.codrum.databinding.ItemMusicBinding
 
 class MusicAdapter(private val itemClickListener: (Song) -> Unit) :

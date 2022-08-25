@@ -1,4 +1,4 @@
-package com.example.codrum.di
+package com.example.di
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore

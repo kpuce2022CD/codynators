@@ -1,13 +1,15 @@
-package com.example.codrum.view
+package com.example.features.intro
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.base.BaseActivity
 import com.example.codrum.R
 import com.example.codrum.databinding.ActivitySplashBinding
+import com.example.codrum.view.LoginActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash){
 
     private lateinit var binding: ActivitySplashBinding
 

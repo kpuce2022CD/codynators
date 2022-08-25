@@ -1,4 +1,4 @@
-package com.example.codrum.di
+package com.example.di
 
 import com.example.codrum.network.IRetrofit
 import dagger.Module
