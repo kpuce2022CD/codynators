@@ -1,4 +1,4 @@
-package com.example.codrum.fragment
+package com.example.features.main.home.presentation
 
 import android.media.MediaRecorder
 import android.os.Bundle
@@ -15,10 +15,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentHomeBinding
-import com.example.codrum.dialog.LoadingDialog
-import com.example.codrum.view.adapter.InfiniteAdapter
-import com.example.codrum.view.adapter.MusicAdapter
-import com.example.codrum.viewModel.MainViewModel
+import com.example.features.intro.presentation.LoadingDialog
+import com.example.features.main.presentation.MainViewModel
 import com.example.data.Song
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File

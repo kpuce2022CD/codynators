@@ -2,7 +2,7 @@ package com.example.data
 
 
 import androidx.lifecycle.LiveData
-import com.example.codrum.network.IRetrofit
+import com.example.features.main.data.service.IRetrofit
 import javax.inject.Inject
 
 

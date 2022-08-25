@@ -11,7 +11,7 @@ import com.example.App
 import com.example.base.BaseFragment
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentSplashBinding
-import com.example.codrum.view.MainActivity
+import com.example.features.main.presentation.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

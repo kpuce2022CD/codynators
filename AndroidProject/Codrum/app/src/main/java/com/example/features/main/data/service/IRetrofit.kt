@@ -1,4 +1,4 @@
-package com.example.codrum.network
+package com.example.features.main.data.service
 
 import com.example.data.Song
 import retrofit2.http.Body

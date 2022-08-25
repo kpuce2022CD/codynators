@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.codrum.viewModel.MainViewModel" />
+            type="com.example.features.main.presentation.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

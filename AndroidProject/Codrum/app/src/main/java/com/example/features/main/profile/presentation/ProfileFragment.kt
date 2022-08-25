@@ -1,4 +1,4 @@
-package com.example.codrum.fragment
+package com.example.features.main.profile.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.codrum.databinding.FragmentProfileBinding
-import com.example.codrum.dialog.LoadingDialog
-import com.example.codrum.view.adapter.MusicAdapter
-import com.example.codrum.viewModel.MainViewModel
+import com.example.features.intro.presentation.LoadingDialog
+import com.example.features.main.home.presentation.MusicAdapter
+import com.example.features.main.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

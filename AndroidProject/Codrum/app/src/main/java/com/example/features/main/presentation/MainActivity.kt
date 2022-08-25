@@ -1,4 +1,4 @@
-package com.example.codrum.view
+package com.example.features.main.presentation
 
 import android.Manifest
 import android.os.Bundle
@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.codrum.R
 import com.example.codrum.databinding.ActivityMainBinding
-import com.example.codrum.fragment.HomeFragment
-import com.example.codrum.fragment.UploadFragment
-import com.example.codrum.viewModel.MainViewModel
+import com.example.features.main.home.presentation.HomeFragment
+import com.example.features.main.upload.presentation.UploadFragment
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 

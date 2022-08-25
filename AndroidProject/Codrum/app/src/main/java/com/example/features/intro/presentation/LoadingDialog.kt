@@ -1,4 +1,4 @@
-package com.example.codrum.dialog
+package com.example.features.intro.presentation
 
 import android.app.Dialog
 import android.content.Context

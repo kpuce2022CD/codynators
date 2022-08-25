@@ -1,4 +1,4 @@
-package com.example.codrum.viewModel
+package com.example.features.main.presentation
 
 import android.net.Uri
 import androidx.lifecycle.LiveData

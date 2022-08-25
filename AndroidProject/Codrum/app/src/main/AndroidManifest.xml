@@ -37,7 +37,7 @@
                 android:name="android.notch_support"
                 android:value="true" />
         </activity>-->
-        <activity android:name=".view.MainActivity"></activity>
+        <activity android:name="com.example.features.main.presentation.MainActivity"></activity>
         <activity
             android:name="com.example.features.intro.presentation.IntroActivity"
             android:exported="true">

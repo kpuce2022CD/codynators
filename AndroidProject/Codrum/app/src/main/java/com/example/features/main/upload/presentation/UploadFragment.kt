@@ -1,4 +1,4 @@
-package com.example.codrum.fragment
+package com.example.features.main.upload.presentation
 
 import android.Manifest
 import android.app.Activity
@@ -14,8 +14,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.codrum.databinding.FragmentUploadBinding
-import com.example.codrum.dialog.LoadingDialog
-import com.example.codrum.viewModel.MainViewModel
+import com.example.features.intro.presentation.LoadingDialog
+import com.example.features.main.presentation.MainViewModel
 import com.example.data.Song
 import com.example.data.Song.Companion.CUSTOM
 import com.google.firebase.auth.ktx.auth

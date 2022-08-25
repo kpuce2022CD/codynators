@@ -1,4 +1,4 @@
-package com.example.codrum.view.adapter
+package com.example.features.main.home.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

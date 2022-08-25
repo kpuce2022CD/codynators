@@ -12,8 +12,7 @@ import androidx.navigation.findNavController
 import com.example.base.BaseFragment
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentSignInBinding
-import com.example.codrum.dialog.LoadingDialog
-import com.example.codrum.view.MainActivity
+import com.example.features.main.presentation.MainActivity
 import com.example.shared.check
 import kotlinx.coroutines.launch
 

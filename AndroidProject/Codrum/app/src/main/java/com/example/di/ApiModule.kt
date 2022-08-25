@@ -1,6 +1,6 @@
 package com.example.di
 
-import com.example.codrum.network.IRetrofit
+import com.example.features.main.data.service.IRetrofit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
