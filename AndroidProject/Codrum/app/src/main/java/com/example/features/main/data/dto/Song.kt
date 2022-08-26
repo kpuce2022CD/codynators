@@ -17,3 +17,7 @@ data class Song(
         const val CUSTOM = 2
     }
 }
+
+fun Song.toFile(): String {
+    return filename + ".jpg"
+}

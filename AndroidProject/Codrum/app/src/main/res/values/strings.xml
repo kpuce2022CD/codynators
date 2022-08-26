@@ -19,5 +19,7 @@
     <string name="my_song">내 곡 목록</string>
     <string name="record">녹음하기</string>
     <string name="practice_list">연습곡 목록</string>
+    <string name="ok">확인</string>
+    <string name="song_title">곡 제목</string>
 
 </resources>

@@ -1,8 +1,11 @@
 package com.example.features.main.presentation
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.App
 import com.example.features.main.data.dto.Song
+import com.example.features.main.data.dto.toFile
 import com.example.features.main.domain.DeleteUseCase
 import com.example.features.main.domain.GetSongUseCase
 import com.example.features.main.domain.InsertUserCase
@@ -11,11 +14,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +29,7 @@ class MainViewModel @Inject constructor(
     private val uploadUseCase: UploadUseCase,
     private val fbRdb: FirebaseDatabase,
     private val fbAuth: FirebaseAuth,
-    private val fbStore: FirebaseStorage
+    private val fbStorage: FirebaseStorage
 ) : ViewModel() {
 
     private val _practiceSong = MutableStateFlow<List<Song>>(emptyList())
@@ -38,12 +41,35 @@ class MainViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
-    fun upload(song: Song) {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                _isLoading.value = true
+    private val _isSuccess = MutableSharedFlow<Boolean>()
+    val isSuccess = _isSuccess.asSharedFlow()
+
+    fun upload(song: Song, uri: Uri) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            runCatching {
+                uploadUseCase(song)
+            }.onSuccess {
+                fbRdb.getReference(fbAuth.uid.toString()).setValue(song.filename)
+                fbStorage.reference.child(song.toFile()).putFile(uri).addOnSuccessListener {
+                    // TODO _mysong 업데이트
+                    success(true)
+                }
+            }.onFailure {
+                success(false)
             }
-            /*uploadUseCase(song)*/
+        }
+    }
+
+    private fun success(state: Boolean) {
+        viewModelScope.launch {
+            if (state) {
+                _isLoading.value = false
+                _isSuccess.emit(state)
+            } else {
+                _isLoading.value = false
+                _isSuccess.emit(state)
+            }
         }
     }
 
@@ -52,6 +78,14 @@ class MainViewModel @Inject constructor(
             _practiceSong.value = getSonUseCase()
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            fbAuth.signOut()
+            App.prefs.loginCheck = false
+        }
+    }
+
 
     /*fun putSong(song: Song, name: String, storage: StorageReference?, uid: String, uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {

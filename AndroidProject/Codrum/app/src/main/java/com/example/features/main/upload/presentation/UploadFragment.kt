@@ -1,87 +1,88 @@
 package com.example.features.main.upload.presentation
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.base.BaseFragment
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentUploadBinding
+import com.example.features.main.data.dto.Song
+import com.example.features.main.data.dto.Song.Companion.CUSTOM
+import com.example.features.main.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upload) {
 
-}/*: Fragment() {
+    private var pickImageFromAlbum = 0
+    private lateinit var uriPhoto: Uri
 
-    var pickImageFromAlbum = 0
-    var uriPhoto: Uri? = null
-    var fbStorage: FirebaseStorage? = null
-    val userUID = Firebase.auth.currentUser?.uid.toString()
+    private val mainViewModel: MainViewModel by activityViewModels()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        collectFlow()
+        initView()
+    }
 
-    private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var loadingDialog: LoadingDialog
-
-    lateinit var binding: FragmentUploadBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentUploadBinding.inflate(inflater, container, false)
-        loadingDialog = LoadingDialog(requireActivity())
-        fbStorage = FirebaseStorage.getInstance()
-
-        subscribeToObservables()
-        binding.imgMusicScore.setOnClickListener {
-            // Open Album
-            var photoPickerIntent = Intent(Intent.ACTION_PICK)
-            photoPickerIntent.type = "image/*"
-            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+    private fun initView() {
+        binding.apply {
+            ivElbum.setOnClickListener {
+                val photoPickerIntent = Intent(Intent.ACTION_PICK)
+                photoPickerIntent.type = "image/*"
+                startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+            }
+            btnUpload.setOnClickListener {
+                mainViewModel.upload(Song(CUSTOM, etSongTitle.text.toString()), uriPhoto)
+            }
         }
-        binding.btnUpload.setOnClickListener {
-            imageUpload()
+    }
+
+    private fun collectFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    mainViewModel.isSuccess.collect { state ->
+                        if (state) Toast.makeText(requireContext(), "업로드 성공", Toast.LENGTH_SHORT)
+                            .show()
+                        else Toast.makeText(requireContext(), "업로드 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
-        return binding.root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == pickImageFromAlbum) {
             if (resultCode == Activity.RESULT_OK) {
-                uriPhoto = data?.data
-                binding.imgMusicScore.setImageURI(uriPhoto)
-                if (ContextCompat.checkSelfPermission(
-                        binding.root.context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    binding.editSongName.isVisible = true
+                uriPhoto = data?.data!!
+                binding.apply {
+                    ivElbum.setImageURI(uriPhoto)
+                    if (ContextCompat.checkSelfPermission(
+                            binding.root.context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        etSongTitle.isVisible = true
+                    }
                 }
             } else {
-                toast("다시 작업해 주세요")
+                Toast.makeText(requireContext(), "다시 작업해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
-    private fun imageUpload() {
-        val imgFileName = binding.editSongName.text.toString() + "_.jpg"
-        val storageRef = fbStorage?.reference?.child(userUID)?.child(imgFileName)
-        val song = Song(CUSTOM, binding.editSongName.text.toString())
-        viewModel.putSong(
-            song,
-            binding.editSongName.text.toString(),
-            storageRef,
-            userUID,
-            uriPhoto
-        )
-
-    }
-
-    private fun subscribeToObservables() {
-        viewModel.isLoading.observe(requireActivity()) { loading ->
-            showLoading(loading)
-        }
-    }
-
-    private fun showLoading(loading: Boolean) {
-        if (loading) loadingDialog.show() else loadingDialog.dismiss()
-    }*/
+}

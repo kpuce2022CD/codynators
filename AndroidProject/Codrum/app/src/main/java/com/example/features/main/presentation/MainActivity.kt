@@ -2,6 +2,7 @@ package com.example.features.main.presentation
 
 import android.Manifest
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
 
+    private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestPermission()
@@ -41,7 +43,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         navController.navigate(R.id.uploadFragment)
                     }
                     R.id.logout -> {
-                        //TODO 로그아웃
+                        mainViewModel.logout()
+                        finish()
                     }
                 }
                 true
