@@ -1,6 +1,6 @@
 package com.example.di
 
-import com.example.features.main.data.service.IRetrofit
+import com.example.features.main.data.service.UploadService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,12 +33,12 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): IRetrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): UploadService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(IRetrofit::class.java)
+            .create(UploadService::class.java)
     }
 }

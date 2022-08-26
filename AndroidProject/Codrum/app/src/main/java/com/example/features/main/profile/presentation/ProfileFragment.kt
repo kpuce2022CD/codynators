@@ -1,26 +1,27 @@
 package com.example.features.main.profile.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.base.BaseFragment
+import com.example.codrum.R
 import com.example.codrum.databinding.FragmentProfileBinding
-import com.example.features.intro.presentation.LoadingDialog
-import com.example.features.main.home.presentation.MusicAdapter
 import com.example.features.main.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+    private val mainViewModel: MainViewModel by activityViewModels()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+}/*:
 
-    lateinit var binding: FragmentProfileBinding
     private val adapter = MusicAdapter(itemClickListener = {
 //        startActivity(Intent(requireActivity(), UnityPlayerActivity::class.java))
     })
 
-    /* val userUID = Firebase.auth.currentUser?.uid.toString()*/
+    *//* val userUID = Firebase.auth.currentUser?.uid.toString()*//*
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingDialog
 
@@ -45,5 +46,4 @@ class ProfileFragment : Fragment() {
     private fun showLoading(loading: Boolean) {
         if (loading) loadingDialog.show() else loadingDialog.dismiss()
     }
-
-}
+*/

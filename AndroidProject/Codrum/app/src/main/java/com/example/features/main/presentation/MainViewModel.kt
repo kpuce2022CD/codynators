@@ -1,67 +1,59 @@
 package com.example.features.main.presentation
 
-import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.MainRepository
-import com.example.data.Song
+import com.example.features.main.data.dto.Song
+import com.example.features.main.domain.DeleteUseCase
+import com.example.features.main.domain.GetSongUseCase
+import com.example.features.main.domain.InsertUserCase
+import com.example.features.main.domain.UploadUseCase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private var mainRepository: MainRepository
+    private val deleteUseCase: DeleteUseCase,
+    private val getSonUseCase: GetSongUseCase,
+    private val insertUserCase: InsertUserCase,
+    private val uploadUseCase: UploadUseCase,
+    private val fbRdb: FirebaseDatabase,
+    private val fbAuth: FirebaseAuth,
+    private val fbStore: FirebaseStorage
 ) : ViewModel() {
 
-    @Inject
-    lateinit var fbRdb: FirebaseDatabase
+    private val _practiceSong = MutableStateFlow<List<Song>>(emptyList())
+    val practiceSong = _practiceSong.asStateFlow()
 
-    /*  @Inject
-      lateinit var fbStorage: FirebaseStorage
+    private val _mySong = MutableStateFlow<List<Song>>(emptyList())
+    val mySong = _mySong.asStateFlow()
 
-      @Inject
-      lateinit var fbFireStore: FirebaseFirestore*/
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
 
-    var song = mainRepository.allSong
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
-
-    private var _auth: FirebaseAuth? = null
-    val auth: FirebaseAuth?
-        get() = _auth
-
-    fun getUserAuth(): FirebaseAuth? {
-        _auth = Firebase.auth
-        return auth
+    fun upload(song: Song) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                _isLoading.value = true
+            }
+            /*uploadUseCase(song)*/
+        }
     }
 
-/*    fun renewSongList(uid: String) {
-        _isLoading.value = true
-        fbRdb.getReference(uid).get().addOnSuccessListener {
-            for (i in it.children) {
-                if (_songList.value!!.any() { it.filename == i.key.toString() }) {
-                    continue
-                } else {
-                    _songList.value!!.add(Song(uid, i.key.toString()))
-                }
-            }
-            _isLoading.value = false
+    fun getPractice() {
+        viewModelScope.launch {
+            _practiceSong.value = getSonUseCase()
         }
+    }
 
-    }*/
-
-    fun putSong(song: Song, name: String, storage: StorageReference?, uid: String, uri: Uri?) {
+    /*fun putSong(song: Song, name: String, storage: StorageReference?, uid: String, uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             runCatching {
@@ -89,5 +81,5 @@ class MainViewModel @Inject constructor(
 
     fun deleteSong(song: Song) = viewModelScope.launch(Dispatchers.IO) {
         mainRepository.delete(song)
-    }
+    }*/
 }

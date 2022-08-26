@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/drawable/ic_baseline_add_to_photos.xml" value="0.1745" />
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/drawable/ic_baseline_play_circle_outline_24.xml" value="0.219" />
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1745" />
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/drawable/radius_white.xml" value="0.2005" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/activity_intro.xml" value="0.23125" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/activity_login.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/activity_main.xml" value="0.21754385964912282" />
@@ -11,11 +15,12 @@
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/asd.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/dialog_loading.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_home.xml" value="0.23125" />
-        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_profile.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_profile.xml" value="0.28925081433224753" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_sign_in.xml" value="0.23125" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_sign_up.xml" value="0.23125" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_splash.xml" value="0.1" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/fragment_upload.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/item_banner.xml" value="0.1" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/item_music.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/layout/list_item_banner.xml" value="0.23125" />
         <entry key="..\:/Users/rldkv/Documents/GitHub/codynators/AndroidProject/Codrum/app/src/main/res/menu/bottom_menu.xml" value="0.1" />

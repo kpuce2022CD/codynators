@@ -1,11 +1,11 @@
 package com.example.features.main.data.service
 
-import com.example.data.Song
+import com.example.features.main.data.dto.Song
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface IRetrofit {
+interface UploadService {
     @POST("/")
     @Headers(
         "accept: application/json",

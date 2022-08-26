@@ -3,46 +3,133 @@ package com.example.features.main.home.presentation
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
-import android.os.Message
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
+import com.example.base.BaseFragment
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentHomeBinding
 import com.example.features.intro.presentation.LoadingDialog
+import com.example.features.main.data.dto.Song
 import com.example.features.main.presentation.MainViewModel
-import com.example.data.Song
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
+
+const val INTERVAL_TIME = 3000L
+
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    // for Banner
+    private var bannerPosition = Int.MAX_VALUE / 2
+    private lateinit var job: Job
 
-    private var currentPosition = Int.MAX_VALUE / 2
-    lateinit var binding: FragmentHomeBinding
-    private var myHandler = MyHandler()
-    private val intervalTime = 3000.toLong()
-
+    // for Record
     private val recorder = MediaRecorder()
     private val sdcard = Environment.getExternalStorageDirectory()
     private val file = File(sdcard, "recorded.mp4")
     private var filename = file.absolutePath
 
-    private var recordFlag = false
-
-    private val adapter = MusicAdapter(itemClickListener = {
+    private val musicAdapter = MusicAdapter(itemClickListener = {
         doOnClick(it)
     })
-
     private val viewModel: MainViewModel by activityViewModels()
-
     private lateinit var loadingDialog: LoadingDialog
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loadingDialog = LoadingDialog(requireContext())
+        viewModel.getPractice()
+        collectFlow()
+        initView()
+    }
+
+    private fun initView() {
+        binding.apply {
+            vpHomeBanner.apply {
+                adapter = BannerAdapter(getBannerList())
+                orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                setCurrentItem(bannerPosition, false)
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        bannerPosition = position
+                    }
+                })
+            }
+            rvHomeSongList.adapter = musicAdapter
+        }
+    }
+
+    private fun showLoading(loading: Boolean) =
+        if (loading) loadingDialog.show() else loadingDialog.dismiss()
+
+
+    private fun collectFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.practiceSong.collect { songList ->
+                        musicAdapter.submitList(songList.toList())
+                    }
+                }
+                launch {
+                    viewModel.isLoading.collect { state ->
+                        showLoading(state)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun doOnClick(item: Song) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle(item.filename)
+            .setPositiveButton("시작하기") { _, _ ->
+                if (binding.switchRecord.isChecked) {
+                    // TODO 유니티 연결하기 && 녹음
+                    /*startRecord()*/
+                } else {
+                    // TODO 유니티만 연결
+                }
+            }.setNegativeButton("취소") { _, _ -> }
+            .create()
+            .show()
+    }
+
+    private fun getBannerList(): List<Int> =
+        listOf(R.drawable.find1, R.drawable.find2, R.drawable.start)
+
+    private fun scrollJobCreate() {
+        job = viewLifecycleOwner.lifecycleScope.launch {
+            while (true) {
+                delay(2000L)
+                binding.vpHomeBanner.setCurrentItem(++bannerPosition, true)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        scrollJobCreate()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        job.cancel()
+    }
+
+}/* : Fragment() {
+
+
+    private var recordFlag = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +216,7 @@ class HomeFragment : Fragment() {
             .setTitle(item.filename)
             .setPositiveButton("시작하기") { _, _ ->
                 //startActivity 여기
-                if(binding.switchRecord.isChecked){
+                if (binding.switchRecord.isChecked) {
                     startRecord()
                 }
             }.setNegativeButton("취소") { _, _ ->
@@ -161,7 +248,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun stopRecord() {
-        if(recordFlag){
+        if (recordFlag) {
             recorder.apply {
                 stop()
                 release()
@@ -170,3 +257,4 @@ class HomeFragment : Fragment() {
         }
     }
 }
+*/

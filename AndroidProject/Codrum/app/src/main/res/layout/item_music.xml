@@ -4,44 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="songItem"
-            type="com.example.data.Song" />
+            type="com.example.features.main.data.dto.Song" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/radius_item_song">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/iv_song"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/music_title"
-            app:layout_constraintEnd_toStartOf="@id/music_title"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/music_title"
+            app:layout_constraintTop_toTopOf="@id/tv_item_title"
             app:srcCompat="@drawable/ic_baseline_music_note" />
 
         <TextView
-            android:id="@+id/music_title"
+            android:id="@+id/tv_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:ems="8"
+            android:maxLines="1"
             android:text="@{songItem.filename}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_song"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="song" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
+
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

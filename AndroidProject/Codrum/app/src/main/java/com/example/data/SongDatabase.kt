@@ -1,10 +1,10 @@
 package com.example.data
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.data.Song.Companion.PRACTICE
+import com.example.features.main.data.dto.Song
+import com.example.features.main.data.dto.Song.Companion.PRACTICE
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
@@ -28,7 +28,7 @@ abstract class CustomSongDatabase : RoomDatabase() {
 @Database(
     entities = [Song::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class PracticeSongDatabase : RoomDatabase() {
     abstract fun songDao(): SongDao
@@ -42,13 +42,13 @@ abstract class PracticeSongDatabase : RoomDatabase() {
                     // 기본 곡 추가
                     Executors.newSingleThreadExecutor().execute {
                         runBlocking {
-                            getInstance(context).songDao().apply {
-                                insert(Song(PRACTICE, "연습모드 1"))
-                                insert(Song(PRACTICE, "연습모드 2"))
-                                insert(Song(PRACTICE, "연습모드 3"))
-                                insert(Song(PRACTICE, "연습모드 4"))
-                                insert(Song(PRACTICE, "연습모드 5"))
-                            }
+                            getInstance(context).songDao().insertAll(
+                                Song(PRACTICE, "연습모드 1"),
+                                Song(PRACTICE, "연습모드 2"),
+                                Song(PRACTICE, "연습모드 3"),
+                                Song(PRACTICE, "연습모드 4"),
+                                Song(PRACTICE, "연습모드 5"),
+                            )
                         }
                     }
                 }
@@ -60,25 +60,15 @@ abstract class PracticeSongDatabase : RoomDatabase() {
 interface SongDao {
 
     @Query("SELECT * FROM Song")
-    fun getAll(): LiveData<List<Song>>
+    suspend fun getAll(): List<Song>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(song: Song)
+    suspend fun insert(song: Song)
+
+    // DB 초기화용
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(vararg song: Song)
 
     @Delete
-    fun delete(song: Song)
-}
-
-@Entity
-data class Song(
-    val mode: Int,
-    val filename: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-
-    companion object {
-        const val PRACTICE = 1
-        const val CUSTOM = 2
-    }
+    suspend fun delete(song: Song)
 }

@@ -1,32 +1,15 @@
 package com.example.features.main.upload.presentation
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import com.example.base.BaseFragment
+import com.example.codrum.R
 import com.example.codrum.databinding.FragmentUploadBinding
-import com.example.features.intro.presentation.LoadingDialog
-import com.example.features.main.presentation.MainViewModel
-import com.example.data.Song
-import com.example.data.Song.Companion.CUSTOM
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
-import org.jetbrains.anko.support.v4.toast
 
 
 @AndroidEntryPoint
-class UploadFragment : Fragment() {
+class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upload) {
+
+}/*: Fragment() {
 
     var pickImageFromAlbum = 0
     var uriPhoto: Uri? = null
@@ -101,5 +84,4 @@ class UploadFragment : Fragment() {
 
     private fun showLoading(loading: Boolean) {
         if (loading) loadingDialog.show() else loadingDialog.dismiss()
-    }
-}
+    }*/

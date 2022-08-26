@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.codrum.databinding.ItemMusicBinding
-import com.example.data.Song
+import com.example.features.main.data.dto.Song
 
 class MusicAdapter(private val itemClickListener: (Song) -> Unit) :
     ListAdapter<Song, MusicAdapter.ViewHolder>(musicDiffUtil) {
@@ -31,16 +31,20 @@ class MusicAdapter(private val itemClickListener: (Song) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
-                binding.songItem!!.run {
-                    itemClickListener(this)
+            binding.apply {
+                btnPlay.setOnClickListener {
+                    songItem!!.run {
+                        itemClickListener(this)
+                    }
                 }
             }
         }
 
         fun bind(song: Song) {
-            binding.songItem = song
-            binding.executePendingBindings()
+            binding.apply {
+                songItem = song
+                executePendingBindings()
+            }
         }
 
     }
