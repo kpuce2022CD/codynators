@@ -4,10 +4,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
-        flatDir{
+       /* flatDir{
             dirs "C:\\Users\\rldkv\\Documents\\GitHub\\codynators\\AndroidProject\\Codrum\\unityLibrary\\libs"
-        }
+        }*/
     }
 }
 rootProject.name = "Codrum"
-include ':app',':unityLibrary'
+include ':app'
+/*include 'unityLibrary'*/
+

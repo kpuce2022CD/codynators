@@ -199,7 +199,7 @@ public class NoteManager : MonoBehaviour
                 }
             }
 
-            if (madi == 30)
+            if (madi == 32)
             {
                 //종료시키기
             }
@@ -261,5 +261,9 @@ public class NoteManager : MonoBehaviour
     public void OffTarget()
     {
         ImageTarget = false;
+    }
+    public void setSong(string songTitle)
+    {
+        song = songTitle;
     }
 }

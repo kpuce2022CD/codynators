@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.codrum.viewModel.MainViewModel" />
+            type="com.example.features.main.presentation.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_list_music"
+            android:id="@+id/rv_home_song_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
@@ -28,12 +29,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewpager"
+            app:layout_constraintTop_toBottomOf="@id/vp_home_banner"
             app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/item_music" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewpager"
+            android:id="@+id/vp_home_banner"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_marginTop="30dp"
@@ -42,16 +43,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_home_song_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
-            android:text="곡 리스트"
+            android:text="@string/practice_list"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/item_list_music"
-            app:layout_constraintStart_toStartOf="@+id/item_list_music" />
+            app:layout_constraintBottom_toTopOf="@+id/rv_home_song_list"
+            app:layout_constraintStart_toStartOf="@+id/rv_home_song_list" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/record"
+            app:layout_constraintEnd_toEndOf="@+id/rv_home_song_list"
+            app:layout_constraintTop_toTopOf="@+id/tv_home_song_list" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
