@@ -1,7 +1,6 @@
 package com.example.di
 
 import android.content.Context
-import com.example.data.CustomSongDatabase
 import com.example.data.PracticeSongDatabase
 import dagger.Module
 import dagger.Provides
@@ -19,12 +18,6 @@ object DatabaseModule {
     fun providePracticeSongDatabase(
         @ApplicationContext context: Context
     ): PracticeSongDatabase = PracticeSongDatabase.getInstance(context)
-
-    @Provides
-    @Singleton
-    fun provideCustomSongDatabase(
-        @ApplicationContext context: Context
-    ): CustomSongDatabase = CustomSongDatabase.getInstance(context)
 
     @Singleton
     @Provides

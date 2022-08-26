@@ -15,6 +15,7 @@ import com.example.codrum.R
 import com.example.codrum.databinding.FragmentHomeBinding
 import com.example.features.main.data.dto.Song
 import com.example.features.main.presentation.MainViewModel
+import com.example.features.main.presentation.SongAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -36,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val file = File(sdcard, "recorded.mp4")
     private var filename = file.absolutePath
 
-    private val practiceSongAdapter = PracticeSongAdapter(itemClickListener = {
+    private val songAdapter = SongAdapter(itemClickListener = {
         doOnClick(it)
     })
     private val viewModel: MainViewModel by activityViewModels()
@@ -60,7 +61,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
                 })
             }
-            rvHomeSongList.adapter = practiceSongAdapter
+            rvHomeSongList.adapter = songAdapter
         }
     }
 
@@ -68,7 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.practiceSong.collect { songList ->
-                    practiceSongAdapter.submitList(songList.toList())
+                    songAdapter.submitList(songList.toList())
                 }
             }
         }

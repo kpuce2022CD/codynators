@@ -1,4 +1,4 @@
-package com.example.features.main.profile.presentation
+package com.example.features.main.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.codrum.databinding.ItemMusicBinding
 import com.example.features.main.data.dto.Song
 
-class MySongAdapter(private val itemClickListener: (Song) -> Unit) :
-    ListAdapter<Song, MySongAdapter.ViewHolder>(musicDiffUtil) {
+class SongAdapter(private val itemClickListener: (Song) -> Unit) :
+    ListAdapter<Song, SongAdapter.ViewHolder>(musicDiffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -58,4 +58,5 @@ class MySongAdapter(private val itemClickListener: (Song) -> Unit) :
                 oldItem == newItem
         }
     }
+
 }

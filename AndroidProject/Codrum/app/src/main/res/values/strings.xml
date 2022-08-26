@@ -21,5 +21,7 @@
     <string name="practice_list">연습곡 목록</string>
     <string name="ok">확인</string>
     <string name="song_title">곡 제목</string>
+    <string name="choose_album">클릭하여 앨범 선택</string>
+    <string name="empty_song">업로드된 곡이 없어요</string>
 
 </resources>

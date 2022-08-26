@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.base.BaseFragment
 import com.example.codrum.R
 import com.example.codrum.databinding.FragmentUploadBinding
+import com.example.features.intro.presentation.LoadingDialog
 import com.example.features.main.data.dto.Song
 import com.example.features.main.data.dto.Song.Companion.CUSTOM
 import com.example.features.main.presentation.MainViewModel
@@ -30,16 +31,18 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
     private var pickImageFromAlbum = 0
     private lateinit var uriPhoto: Uri
 
+    private lateinit var loadingDialog: LoadingDialog
     private val mainViewModel: MainViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadingDialog = LoadingDialog(requireContext())
         collectFlow()
         initView()
     }
 
     private fun initView() {
         binding.apply {
-            ivElbum.setOnClickListener {
+            ivAlbum.setOnClickListener {
                 val photoPickerIntent = Intent(Intent.ACTION_PICK)
                 photoPickerIntent.type = "image/*"
                 startActivityForResult(photoPickerIntent, pickImageFromAlbum)
@@ -53,16 +56,28 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
     private fun collectFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    mainViewModel.isSuccess.collect { state ->
-                        if (state) Toast.makeText(requireContext(), "업로드 성공", Toast.LENGTH_SHORT)
-                            .show()
-                        else Toast.makeText(requireContext(), "업로드 실패", Toast.LENGTH_SHORT).show()
+                mainViewModel.apply {
+                    launch {
+                        isSuccess.collect { state ->
+                            Toast.makeText(
+                                requireContext(),
+                                if (state) "업로드 성공" else "업로드 실패",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    launch {
+                        isLoading.collect { state ->
+                            showDialog(state)
+                        }
                     }
                 }
             }
         }
     }
+
+    private fun showDialog(state: Boolean) =
+        if (state) loadingDialog.show() else loadingDialog.dismiss()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -70,13 +85,15 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data!!
                 binding.apply {
-                    ivElbum.setImageURI(uriPhoto)
+                    ivAlbum.setImageURI(uriPhoto)
                     if (ContextCompat.checkSelfPermission(
                             binding.root.context,
                             Manifest.permission.READ_EXTERNAL_STORAGE
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
                         etSongTitle.isVisible = true
+                        btnUpload.isEnabled = true
+                        tvInfo.isVisible = false
                     }
                 }
             } else {

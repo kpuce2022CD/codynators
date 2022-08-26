@@ -3,6 +3,7 @@ package com.example.features.main.presentation
 import android.Manifest
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -43,13 +44,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         navController.navigate(R.id.uploadFragment)
                     }
                     R.id.logout -> {
-                        mainViewModel.logout()
-                        finish()
+                        checkLogin()
                     }
                 }
                 true
             }
         }
+    }
+
+    private fun checkLogin() {
+        AlertDialog.Builder(this)
+            .setTitle("로그인 하시겠습니까?")
+            .setPositiveButton("네") { _, _ ->
+                mainViewModel.logout()
+                finish()
+            }.setNegativeButton("취소") { _, _ -> }
+            .create()
+            .show()
     }
 
     private fun requestPermission() {

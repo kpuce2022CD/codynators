@@ -8,22 +8,6 @@ import com.example.features.main.data.dto.Song.Companion.PRACTICE
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
-// 추가된 곡 DB
-@Database(
-    entities = [Song::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class CustomSongDatabase : RoomDatabase() {
-    abstract fun songDao(): SongDao
-
-    companion object {
-        fun getInstance(context: Context): CustomSongDatabase = Room
-            .databaseBuilder(context, CustomSongDatabase::class.java, "custom.db")
-            .build()
-    }
-}
-
 // 연습모드 곡 DB
 @Database(
     entities = [Song::class],
@@ -61,9 +45,6 @@ interface SongDao {
 
     @Query("SELECT * FROM Song")
     suspend fun getAll(): List<Song>
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(song: Song)
 
     // DB 초기화용
     @Insert(onConflict = OnConflictStrategy.IGNORE)

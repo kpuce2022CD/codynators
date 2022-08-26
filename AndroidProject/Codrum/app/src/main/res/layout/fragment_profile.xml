@@ -71,5 +71,19 @@
             android:text="@string/record"
             app:layout_constraintBottom_toTopOf="@id/rv_list_my_song"
             app:layout_constraintEnd_toEndOf="@id/rv_list_my_song" />
+
+        <TextView
+            android:id="@+id/tv_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_song"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
