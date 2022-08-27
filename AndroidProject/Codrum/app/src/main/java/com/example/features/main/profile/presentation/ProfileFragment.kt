@@ -1,5 +1,6 @@
 package com.example.features.main.profile.presentation
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.example.features.intro.presentation.LoadingDialog
 import com.example.features.main.data.dto.Song
 import com.example.features.main.presentation.MainViewModel
 import com.example.features.main.presentation.SongAdapter
+import com.example.features.recorder.MyRecorder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +36,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         loadingDialog = LoadingDialog(requireContext())
         collectFlow()
         initView()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val audioRecordPermissionGranted =
+            requestCode == MyRecorder.REQUEST_RECORD_AUDIO_PERMISSION &&
+                    grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED
+        if (!audioRecordPermissionGranted) {
+            Toast.makeText(requireContext(), "녹음이 불가능합니다", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView() {
@@ -83,8 +99,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             .setTitle(item.filename)
             .setPositiveButton("시작하기") { _, _ ->
                 if (binding.switchMySongRecord.isChecked) {
-                    // TODO 유니티 연결하기 && 녹음
-                    /*startRecord()*/
+                    runCatching {
+                        viewModel.recorder.startRecording()
+                    }.onSuccess {
+                        viewModel.recordFlag = true
+                        //TODO 유니티 연결하기
+                    }.onFailure {
+                        Toast.makeText(requireContext(), "녹음이 불가능합니다.", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     // TODO 유니티만 연결
                 }
@@ -94,5 +116,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
             .create()
             .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        runCatching {
+            viewModel.recorder.stopRecording(viewModel.recordFlag)
+        }.onSuccess {
+            viewModel.recordFlag = false
+            Toast.makeText(
+                requireContext(),
+                "녹음이 완료되었습니다.\nSD카드에 저장되었습니다",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
