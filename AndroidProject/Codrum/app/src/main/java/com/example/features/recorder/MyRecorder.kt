@@ -2,11 +2,12 @@ package com.example.features.recorder
 
 import android.media.MediaRecorder
 import android.os.Environment
-import java.io.File
+import android.os.Environment.DIRECTORY_DOWNLOADS
+import android.util.Log
 
 class MyRecorder : MediaRecorder() {
-    private val sdcard = Environment.getExternalStorageDirectory()
-    private val file = File(sdcard, "codrum_record.mp4")
+
+    lateinit var filePath: String
 
     fun initRecorder() {
         setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -16,19 +17,28 @@ class MyRecorder : MediaRecorder() {
 
     fun startRecording() {
         initRecorder()
-        setOutputFile(file.absolutePath)
-        prepare()
+        setOutputFile(filePath)
+        runCatching {
+            prepare()
+        }.onFailure {
+            Log.e("record", "startRecording: $it")
+        }
         start()
     }
 
     fun stopRecording(flag: Boolean) {
         if (flag) {
             stop()
-            release()
         } else {
             throw Exception("녹음중이 아님")
         }
     }
+
+    fun setRecordNmae(name: String) {
+        filePath =
+            "${Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)}/" + name + ".mp4"
+    }
+
 
     companion object {
         const val REQUEST_RECORD_AUDIO_PERMISSION = 201
