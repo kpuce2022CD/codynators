@@ -53,14 +53,12 @@ class MainViewModel @Inject constructor(
     fun upload(song: Song, uri: Uri) {
         viewModelScope.launch {
             _isLoading.value = true
-            Log.d("upload", "upload: ${_isLoading.value}")
             runCatching {
                 uploadUseCase(song, uri)
             }.onSuccess {
                 success(true)
             }.onFailure {
                 success(false)
-                Log.d("upload", "upload: ${_isLoading.value}")
             }
         }
     }

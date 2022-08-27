@@ -13,8 +13,7 @@ class UploadUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(song: Song, uri: Uri) {
         runCatching {
-            upLoadRepository.upLoadSong(song)
-        }.onSuccess {
+            /*upLoadRepository.upLoadSong(song)*/
             firebaseRepository.uploadOnFirebase(song.filename, song.toFile(), uri)
         }.onFailure {
             throw it

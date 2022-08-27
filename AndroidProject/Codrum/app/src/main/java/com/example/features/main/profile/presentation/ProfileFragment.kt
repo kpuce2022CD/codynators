@@ -125,11 +125,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             viewModel.recorder.stopRecording(viewModel.recordFlag)
         }.onSuccess {
             viewModel.recordFlag = false
-            Toast.makeText(
-                requireContext(),
-                "녹음이 완료되었습니다.\n경로 ${viewModel.recorder.filePath}",
-                Toast.LENGTH_SHORT
-            ).show()
+            AlertDialog.Builder(requireActivity())
+                .setTitle("녹음 완료")
+                .setPositiveButton("확인") { _, _ -> }
+                .create()
+                .show()
         }
     }
 }
