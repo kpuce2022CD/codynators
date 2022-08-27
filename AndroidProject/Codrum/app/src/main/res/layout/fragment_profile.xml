@@ -59,6 +59,7 @@
             app:elevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="@color/Theme_white"
             app:strokeWidth="3dp" />

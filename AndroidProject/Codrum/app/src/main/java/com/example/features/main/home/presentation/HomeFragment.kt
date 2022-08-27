@@ -1,9 +1,8 @@
 package com.example.features.main.home.presentation
 
-import android.media.MediaRecorder
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -20,22 +19,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.File
 
 
 const val INTERVAL_TIME = 3000L
-// TODO 레코드 작업 필요
+
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     // for Banner
     private var bannerPosition = Int.MAX_VALUE / 2
     private lateinit var job: Job
-
-    // for Record
-    private val recorder = MediaRecorder()
-    private val sdcard = Environment.getExternalStorageDirectory()
-    private val file = File(sdcard, "recorded.mp4")
-    private var filename = file.absolutePath
 
     private val songAdapter = SongAdapter(itemClickListener = {
         doOnClick(it)
@@ -80,8 +72,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             .setTitle(item.filename)
             .setPositiveButton("시작하기") { _, _ ->
                 if (binding.switchRecord.isChecked) {
-                    // TODO 유니티 연결하기 && 녹음
-                    /*startRecord()*/
+                    runCatching {
+                        viewModel.recorder.startRecording()
+                    }.onSuccess {
+                        viewModel.recordFlag = true
+                        // TODO 유니티 연결하기
+                    }.onFailure {
+                        Toast.makeText(requireContext(), "녹음이 불가능합니다.", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     // TODO 유니티만 연결
                 }
@@ -105,42 +103,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
         scrollJobCreate()
+        runCatching {
+            viewModel.recorder.stopRecording(viewModel.recordFlag)
+        }.onSuccess {
+            viewModel.recordFlag = false
+            Toast.makeText(
+                requireContext(),
+                "녹음이 완료되었습니다.\nSD카드에 저장되었습니다",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         job.cancel()
     }
-
-}/*
-    private fun startRecord() {
-        initRecorder(recorder)
-
-        recorder.setOutputFile(filename)
-        runCatching {
-            recorder.prepare()
-        }.onSuccess {
-            recorder.start()
-            recordFlag = true
-        }.onFailure { e ->
-            Log.d("record", "record: $e")
-        }
-    }
-
-    private fun initRecorder(recorder: MediaRecorder) {
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
-    }
-
-    private fun stopRecord() {
-        if (recordFlag) {
-            recorder.apply {
-                stop()
-                release()
-            }
-            recordFlag = false
-        }
-    }
 }
-*/

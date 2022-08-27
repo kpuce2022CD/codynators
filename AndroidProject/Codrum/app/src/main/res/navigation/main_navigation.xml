@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.features.main.home.presentation.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_uploadFragment"
             app:destination="@id/uploadFragment" />
@@ -18,9 +20,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.features.main.profile.presentation.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.example.features.main.upload.presentation.UploadFragment"
-        android:label="UploadFragment" />
+        android:label="UploadFragment"
+        tools:layout="@layout/fragment_upload" />
 </navigation>
