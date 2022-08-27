@@ -7,6 +7,9 @@ import com.example.features.main.data.repository.FirebaseRepository
 import com.example.features.main.data.repository.UpLoadRepository
 import javax.inject.Inject
 
+/* 서버 연결확인하고
+   성공블록으로 파이어베이스 업로드 이동합시다
+*/
 class UploadUseCase @Inject constructor(
     private val upLoadRepository: UpLoadRepository,
     private val firebaseRepository: FirebaseRepository
@@ -15,6 +18,7 @@ class UploadUseCase @Inject constructor(
         runCatching {
             /*upLoadRepository.upLoadSong(song)*/
             firebaseRepository.uploadOnFirebase(song.filename, song.toFile(), uri)
+        }.onSuccess {
         }.onFailure {
             throw it
         }

@@ -100,7 +100,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             .setPositiveButton("시작하기") { _, _ ->
                 if (binding.switchMySongRecord.isChecked) {
                     runCatching {
-                        viewModel.recorder.setRecordNmae(item.filename)
+                        viewModel.recorder.setRecordName(item.filename)
                         viewModel.recorder.startRecording()
                     }.onSuccess {
                         viewModel.recordFlag = true

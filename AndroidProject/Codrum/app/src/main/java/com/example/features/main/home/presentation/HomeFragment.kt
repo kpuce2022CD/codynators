@@ -73,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             .setPositiveButton("시작하기") { _, _ ->
                 if (binding.switchRecord.isChecked) {
                     runCatching {
-                        viewModel.recorder.setRecordNmae(item.filename)
+                        viewModel.recorder.setRecordName(item.filename)
                         viewModel.recorder.startRecording()
                     }.onSuccess {
                         viewModel.recordFlag = true
@@ -108,11 +108,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             viewModel.recorder.stopRecording(viewModel.recordFlag)
         }.onSuccess {
             viewModel.recordFlag = false
-            Toast.makeText(
-                requireContext(),
-                "녹음이 완료되었습니다.\n경로 ${viewModel.recorder.filePath}",
-                Toast.LENGTH_SHORT
-            ).show()
+            AlertDialog.Builder(requireActivity())
+                .setTitle("녹음 완료")
+                .setPositiveButton("확인") { _, _ -> }
+                .create()
+                .show()
         }
     }
 

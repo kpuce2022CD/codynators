@@ -34,7 +34,7 @@ class MyRecorder : MediaRecorder() {
         }
     }
 
-    fun setRecordNmae(name: String) {
+    fun setRecordName(name: String) {
         filePath =
             "${Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)}/" + name + ".mp4"
     }
