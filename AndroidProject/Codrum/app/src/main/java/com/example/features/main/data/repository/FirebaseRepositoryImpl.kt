@@ -27,7 +27,9 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override suspend fun uploadOnFirebase(title: String, file: String, uri: Uri) {
         suspendCancellableCoroutine<Unit> { continuation ->
-            fbRDB.getReference(fbAuth.uid.toString()).setValue(title)
+            fbRDB.getReference(fbAuth.uid.toString())
+                .child(title)
+                .setValue(System.currentTimeMillis())
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         fbStorage.reference.child(file).putFile(uri)
@@ -69,7 +71,6 @@ class FirebaseRepositoryImpl @Inject constructor(
                 override fun onDataChange(snapshot: DataSnapshot) {
                     trySend(snapshot.children.map { Song(CUSTOM, it.key.toString()) })
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     cancel()
                 }

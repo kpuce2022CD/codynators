@@ -86,18 +86,12 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
                 uriPhoto = data?.data!!
                 binding.apply {
                     ivAlbum.setImageURI(uriPhoto)
-                    if (ContextCompat.checkSelfPermission(
-                            binding.root.context,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        etSongTitle.isVisible = true
-                        btnUpload.isEnabled = true
-                        tvInfo.isVisible = false
-                    }
+                    etSongTitle.isVisible = true
+                    btnUpload.isEnabled = true
+                    tvInfo.isVisible = false
                 }
             } else {
-                Toast.makeText(requireContext(), "다시 작업해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "사진 취소.", Toast.LENGTH_SHORT).show()
             }
         }
     }
