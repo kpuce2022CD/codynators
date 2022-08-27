@@ -100,6 +100,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             .setPositiveButton("시작하기") { _, _ ->
                 if (binding.switchMySongRecord.isChecked) {
                     runCatching {
+                        viewModel.recorder.setRecordNmae(item.filename)
                         viewModel.recorder.startRecording()
                     }.onSuccess {
                         viewModel.recordFlag = true
@@ -126,7 +127,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             viewModel.recordFlag = false
             Toast.makeText(
                 requireContext(),
-                "녹음이 완료되었습니다.\nSD카드에 저장되었습니다",
+                "녹음이 완료되었습니다.\n경로 ${viewModel.recorder.filePath}",
                 Toast.LENGTH_SHORT
             ).show()
         }
