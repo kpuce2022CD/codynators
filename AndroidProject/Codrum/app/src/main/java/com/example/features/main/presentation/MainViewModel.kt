@@ -12,6 +12,7 @@ import com.example.features.main.home.domain.GetPracticeUseCase
 import com.example.features.main.profile.domain.DeleteUseCase
 import com.example.features.main.profile.domain.GetMySongUseCase
 import com.example.features.main.upload.domain.UploadUseCase
+import com.example.features.recorder.MyRecorder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -24,12 +25,15 @@ class MainViewModel @Inject constructor(
     private val logOutUseCase: LogOutUseCase,
     private val uploadUseCase: UploadUseCase,
     private val deleteUseCase: DeleteUseCase,
+    val recorder: MyRecorder
 ) : ViewModel() {
 
     private val _practiceSong = MutableStateFlow<List<Song>>(emptyList())
     val practiceSong = _practiceSong.asStateFlow()
 
     val mySong = getMySongUseCase().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    var recordFlag = false
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
@@ -49,14 +53,12 @@ class MainViewModel @Inject constructor(
     fun upload(song: Song, uri: Uri) {
         viewModelScope.launch {
             _isLoading.value = true
-            Log.d("upload", "upload: ${_isLoading.value}")
             runCatching {
                 uploadUseCase(song, uri)
             }.onSuccess {
                 success(true)
             }.onFailure {
                 success(false)
-                Log.d("upload", "upload: ${_isLoading.value}")
             }
         }
     }

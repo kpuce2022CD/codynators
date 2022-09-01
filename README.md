@@ -68,9 +68,9 @@
 * * *
 
 > **Role 👨‍👨‍👦‍👦**
-- **[고현석](https://github.com/khsexk)(팀장)**
+- **[고현석](https://github.com/lcomment)(팀장)**
 - [김태용](https://github.com/YongsHub)(팀원)
-- [김현수](https://github.com/KimHacne)(팀원)
+- [김현수](https://github.com/KimHance)(팀원)
 - [박승찬](https://github.com/eemdeeks)(팀원)
 
 * * *
