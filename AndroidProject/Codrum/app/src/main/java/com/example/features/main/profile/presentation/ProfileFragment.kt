@@ -1,5 +1,6 @@
 package com.example.features.main.profile.presentation
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -19,6 +20,7 @@ import com.example.features.main.data.dto.Song
 import com.example.features.main.presentation.MainViewModel
 import com.example.features.main.presentation.SongAdapter
 import com.example.features.recorder.MyRecorder
+import com.unity3d.player.UnityPlayerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -104,12 +106,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                         viewModel.recorder.startRecording()
                     }.onSuccess {
                         viewModel.recordFlag = true
-                        //TODO 유니티 연결하기
+                        val intent = Intent(requireActivity(), UnityPlayerActivity::class.java)
+                        intent.putExtra("song", item.filename)
+                        startActivity(intent)
                     }.onFailure {
                         Toast.makeText(requireContext(), "녹음이 불가능합니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // TODO 유니티만 연결
+                    val intent = Intent(requireActivity(), UnityPlayerActivity::class.java)
+                    intent.putExtra("song", item.filename)
+                    startActivity(intent)
                 }
             }.setNegativeButton("취소") { _, _ -> }
             .setNeutralButton("삭제하기") { _, _ ->

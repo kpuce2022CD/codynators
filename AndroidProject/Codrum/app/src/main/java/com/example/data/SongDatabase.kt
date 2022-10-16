@@ -27,11 +27,11 @@ abstract class PracticeSongDatabase : RoomDatabase() {
                     Executors.newSingleThreadExecutor().execute {
                         runBlocking {
                             getInstance(context).songDao().insertAll(
-                                Song(PRACTICE, "연습모드 1"),
-                                Song(PRACTICE, "연습모드 2"),
-                                Song(PRACTICE, "연습모드 3"),
-                                Song(PRACTICE, "연습모드 4"),
-                                Song(PRACTICE, "연습모드 5"),
+                                Song(PRACTICE, "level1"),
+                                Song(PRACTICE, "level2"),
+                                Song(PRACTICE, "level3"),
+                                Song(PRACTICE, "level4"),
+                                Song(PRACTICE, "level5"),
                             )
                         }
                     }

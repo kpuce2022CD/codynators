@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    /*   implementation project(':unityLibrary')*/
+    implementation project(':unityLibrary')
 
     // Material Library
     implementation 'com.google.android.material:material:1.6.1'
@@ -66,6 +66,7 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 

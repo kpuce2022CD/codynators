@@ -18,6 +18,16 @@ data class Song(
     }
 }
 
+data class File(
+    val filename: String
+)
+
+fun Song.toUploadFile(): File {
+    return File(
+        filename = this.filename
+    )
+}
+
 fun Song.toFile(): String {
-    return filename + ".jpg"
+    return filename + ".png"
 }

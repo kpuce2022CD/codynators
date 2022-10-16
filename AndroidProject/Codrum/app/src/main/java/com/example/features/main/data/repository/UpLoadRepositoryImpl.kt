@@ -2,6 +2,7 @@ package com.example.features.main.data.repository
 
 import com.example.data.SongDao
 import com.example.features.main.data.dto.Song
+import com.example.features.main.data.dto.toUploadFile
 import com.example.features.main.data.service.UploadService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,8 @@ class UpLoadRepositoryImpl @Inject constructor(
             songDatabaseDao.getAll()
         }
 
-    override suspend fun upLoadSong(body: Song) = upLoadService.putSong(body)
+    override suspend fun upLoadSong(body: Song) {
+        upLoadService.putSong(body.toUploadFile())
+    }
 
 }

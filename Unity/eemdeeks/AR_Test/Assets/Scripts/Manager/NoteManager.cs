@@ -10,7 +10,7 @@ public class NoteManager : MonoBehaviour
 
     public string song;
 
-    public bool ImageTarget; //µå·³ ÀÎ½ÄµÇ°í ÀÖ´Â°¡? => µÇ°í ÀÖÀ¸¸é true
+    public bool ImageTarget; //ï¿½å·³ ï¿½Î½ÄµÇ°ï¿½ ï¿½Ö´Â°ï¿½? => ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true
 
     int index = 0;
     int madi = 1;
@@ -22,175 +22,176 @@ public class NoteManager : MonoBehaviour
 
     double currentTime = 0d;
 
-    [SerializeField] Transform tfHiHatNoteAppear = null; //HiHat³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goHiHatNote = null; //HiHat³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfHiHatNoteAppear = null; //HiHatï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goHiHatNote = null; //HiHatï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfSnareNoteAppear = null; //Snare³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goSnareNote = null; //Sanre³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfSnareNoteAppear = null; //Snareï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goSnareNote = null; //Sanreï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfCrashNoteAppear = null; //Crash³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goCrashNote = null; //Crash³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfCrashNoteAppear = null; //Crashï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goCrashNote = null; //Crashï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfHighTomNoteAppear = null; //HighTom³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goHighTomNote = null; //HighTom³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfHighTomNoteAppear = null; //HighTomï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goHighTomNote = null; //HighTomï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfMidTomNoteAppear = null; //MidTom³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goMidTomNote = null; //MidTom³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfMidTomNoteAppear = null; //MidTomï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goMidTomNote = null; //MidTomï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfLowTomNoteAppear = null; //LowTom³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goLowTomNote = null; //LowTom³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfLowTomNoteAppear = null; //LowTomï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goLowTomNote = null; //LowTomï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfRideNoteAppear = null; //Ride³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goRideNote = null; //Ride³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfRideNoteAppear = null; //Rideï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goRideNote = null; //Rideï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [SerializeField] Transform tfBaseNoteAppear = null; //Base³ëÆ®°¡ »ý¼ºµÉ À§Ä¡ º¯¼ö
-    [SerializeField] GameObject goBaseNote = null; //Base³ëÆ® prefabÀ» ´ãÀ» º¯¼ö
+    [SerializeField] Transform tfBaseNoteAppear = null; //Baseï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] GameObject goBaseNote = null; //Baseï¿½ï¿½Æ® prefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     TimingManager theTimingManager;
 
     void Start()
     {
-        List<Dictionary<string, object>> data = CSVReader.Read(song);
-        // Debug.Log(data[0].Count.ToString()); //Çà(°¡·Î)
-        // Debug.Log(data.Count.ToString()); //¿­(¼¼·Î)
-        row = data[0].Count;
-        column = data.Count;
+        // List<Dictionary<string, object>> data = CSVReader.Read(song);
+        // // Debug.Log(data[0].Count.ToString()); //ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+        // // Debug.Log(data.Count.ToString()); //ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+        // row = data[0].Count;
+        // column = data.Count;
 
-        // ³ëÆ® ¹è¿­ ÃÊ±âÈ­
-        for (var i = 0; i < row; i++)
-        {
-            //Debug.Log("index"+(i).ToString() + ":"+data[i]["Hihat"]+" "+data[i]["Base"]+" "+data[i]["Snare"]);
-            note.Add(new int[column]);
-            for (int j = 0; j < column; j++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        note[i][j] = (int)data[j]["Hihat"];
-                        Debug.Log("ÇÏÀÌÇÞ µé¾î¿È");
-                        break;
-                    case 1:
-                        note[i][j] = (int)data[j]["Snare"];
-                        Debug.Log("½º³×¾î µé¾î¿È");
-                        break;
-                    case 2:
-                        note[i][j] = (int)data[j]["Crash"];
-                        Debug.Log("Å©·¡½Ã µé¾î¿È");
-                        break;
-                    case 3:
-                        note[i][j] = (int)data[j]["HighTom"];
-                        Debug.Log("ÇÏÀÌÅè µé¾î¿È");
-                        break;
-                    case 4:
-                        note[i][j] = (int)data[j]["MidTom"];
-                        Debug.Log("¹ÌµåÅè µé¾î¿È");
-                        break;
-                    case 5:
-                        note[i][j] = (int)data[j]["LowTom"];
-                        Debug.Log("·Î¿ìÅè µé¾î¿È");
-                        break;
-                    case 6:
-                        note[i][j] = (int)data[j]["Ride"];
-                        Debug.Log("¶óÀÌµå µé¾î¿È");
-                        break;
-                    case 7:
-                        note[i][j] = (int)data[j]["Base"];
-                        Debug.Log("º£ÀÌ½º µé¾î¿È");
-                        break;
-                }
-            }
-        }
+        // // ï¿½ï¿½Æ® ï¿½è¿­ ï¿½Ê±ï¿½È­
+        // for (var i = 0; i < row; i++)
+        // {
+        //     //Debug.Log("index"+(i).ToString() + ":"+data[i]["Hihat"]+" "+data[i]["Base"]+" "+data[i]["Snare"]);
+        //     note.Add(new int[column]);
+        //     for (int j = 0; j < column; j++)
+        //     {
+        //         switch (i)
+        //         {
+        //             case 0:
+        //                 note[i][j] = (int)data[j]["Hihat"];
+        //                 Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 1:
+        //                 note[i][j] = (int)data[j]["Snare"];
+        //                 Debug.Log("ï¿½ï¿½ï¿½×¾ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 2:
+        //                 note[i][j] = (int)data[j]["Crash"];
+        //                 Debug.Log("Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 3:
+        //                 note[i][j] = (int)data[j]["HighTom"];
+        //                 Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 4:
+        //                 note[i][j] = (int)data[j]["MidTom"];
+        //                 Debug.Log("ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 5:
+        //                 note[i][j] = (int)data[j]["LowTom"];
+        //                 Debug.Log("ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 6:
+        //                 note[i][j] = (int)data[j]["Ride"];
+        //                 Debug.Log("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //             case 7:
+        //                 note[i][j] = (int)data[j]["Base"];
+        //                 Debug.Log("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        //                 break;
+        //         }
+        //     }
+        // }
 
-        for (int a = 0; a < row; a++)
-        {
-            for (int b = 0; b < column; b++)
-            {
-                Debug.Log("index" + "[" + (a).ToString() + "]" + "[" + (b).ToString() + "]" + ":" + note[a][b]);
-            }
-        }
+        // for (int a = 0; a < row; a++)
+        // {
+        //     for (int b = 0; b < column; b++)
+        //     {
+        //         Debug.Log("index" + "[" + (a).ToString() + "]" + "[" + (b).ToString() + "]" + ":" + note[a][b]);
+        //     }
+        // }
 
-        theTimingManager = GetComponent<TimingManager>();
-        Thread.Sleep(2000);
+        // theTimingManager = GetComponent<TimingManager>();
+        // Thread.Sleep(2000);
     }
 
     // Update is called once per frame
     void Update()
     {
+    
 
         if (ImageTarget)
         {
-            currentTime += Time.deltaTime; //1ÃÊ¾¿ Áõ°¡
+            currentTime += Time.deltaTime; //1ï¿½Ê¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 
             // int [,] list =new int[3,4] {{1,1,1,1},{0,0,1,0},{1,0,1,0}};
 
 
-            if (currentTime >= 60d / bpm) //ex bpmÀÌ 120ÀÌ¸é 0.5ÃÊ´ç ³ëÆ®°¡ ÇÏ³ª¾¿
+            if (currentTime >= 60d / bpm) //ex bpmï¿½ï¿½ 120ï¿½Ì¸ï¿½ 0.5ï¿½Ê´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½
             {
                 if (note[0][index] == 1)
                 {
-                    GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                         //Debug.Log("ÇÏÀÌ¾Ü »ý¼º");       
+                    GameObject t_noteHitHat = Instantiate(goHiHatNote, tfHiHatNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                         //Debug.Log("ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteHitHat.transform.SetParent(this.transform);
                     theTimingManager.HitHatNoteList.Add(t_noteHitHat);
                 }
 
                 if (note[1][index] == 1)
                 {
-                    GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                        //Debug.Log("½º³×¾î »ý¼º");
+                    GameObject t_noteSnare = Instantiate(goSnareNote, tfSnareNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                        //Debug.Log("ï¿½ï¿½ï¿½×¾ï¿½ ï¿½ï¿½ï¿½ï¿½");
                     t_noteSnare.transform.SetParent(this.transform);
                     theTimingManager.SnareNoteList.Add(t_noteSnare);
                 }
 
                 if (note[2][index] == 1)
                 {
-                    GameObject t_noteCrash = Instantiate(goCrashNote, tfCrashNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                        //Debug.Log("Å©·¡½Ã »ý¼º");
+                    GameObject t_noteCrash = Instantiate(goCrashNote, tfCrashNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                        //Debug.Log("Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                     t_noteCrash.transform.SetParent(this.transform);
                     theTimingManager.CrashNoteList.Add(t_noteCrash);
                 }
 
                 if (note[3][index] == 1)
                 {
-                    GameObject t_noteHighTom = Instantiate(goHighTomNote, tfHighTomNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                              //Debug.Log("ÇÏÀÌÅè »ý¼º");       
+                    GameObject t_noteHighTom = Instantiate(goHighTomNote, tfHighTomNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                              //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteHighTom.transform.SetParent(this.transform);
                     theTimingManager.HighTomNoteList.Add(t_noteHighTom);
                 }
 
                 if (note[4][index] == 1)
                 {
-                    GameObject t_noteMidTom = Instantiate(goMidTomNote, tfMidTomNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                           //Debug.Log("¹ÌµåÅè »ý¼º");       
+                    GameObject t_noteMidTom = Instantiate(goMidTomNote, tfMidTomNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                           //Debug.Log("ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteMidTom.transform.SetParent(this.transform);
                     theTimingManager.MidTomNoteList.Add(t_noteMidTom);
                 }
 
                 if (note[5][index] == 1)
                 {
-                    GameObject t_noteLowTom = Instantiate(goLowTomNote, tfLowTomNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                           //Debug.Log("·Î¿ìÅè »ý¼º");       
+                    GameObject t_noteLowTom = Instantiate(goLowTomNote, tfLowTomNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                           //Debug.Log("ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteLowTom.transform.SetParent(this.transform);
                     theTimingManager.LowTomNoteList.Add(t_noteLowTom);
                 }
 
                 if (note[6][index] == 1)
                 {
-                    GameObject t_noteRide = Instantiate(goRideNote, tfRideNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                     //Debug.Log("¶óÀÌµå »ý¼º");       
+                    GameObject t_noteRide = Instantiate(goRideNote, tfRideNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                     //Debug.Log("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteRide.transform.SetParent(this.transform);
                     theTimingManager.RideNoteList.Add(t_noteRide);
                 }
 
                 if (note[7][index] == 1)
                 {
-                    GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // ³ëÆ® »ý¼º
-                                                                                                                     //Debug.Log("º£ÀÌ½º »ý¼º");       
+                    GameObject t_noteBase = Instantiate(goBaseNote, tfBaseNoteAppear.position, Quaternion.identity); // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                                                                                                                     //Debug.Log("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½");       
                     t_noteBase.transform.SetParent(this.transform);
                     theTimingManager.BaseNoteList.Add(t_noteBase);
                 }
 
-                currentTime -= 60d / bpm; //¼Ò¼öÁ¡ ¿ÀÂ÷°í·Á
+                currentTime -= 60d / bpm; //ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 index++;
                 if (index == column)
                 {
@@ -201,14 +202,14 @@ public class NoteManager : MonoBehaviour
 
             if (madi == 32)
             {
-                //Á¾·á½ÃÅ°±â
+                //ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½
             }
         }
         
     }
 
 
-    private void OnTriggerExit2D(Collider2D collision) // Ãæµ¹ ±¸Çö
+    private void OnTriggerExit2D(Collider2D collision) // ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½
     {
         if (collision.CompareTag("HiHat"))
         {
@@ -262,8 +263,73 @@ public class NoteManager : MonoBehaviour
     {
         ImageTarget = false;
     }
+    
     public void setSong(string songTitle)
     {
         song = songTitle;
+        // Debug.Log(song.ToString);
+        List<Dictionary<string, object>> data = CSVReader.Read(song);
+        // Debug.Log(data[0].Count.ToString()); 
+        // Debug.Log(data.Count.ToString());
+        row = data[0].Count;
+        column = data.Count;
+
+        // ï¿½ï¿½Æ® ï¿½è¿­ ï¿½Ê±ï¿½È­
+        for (var i = 0; i < row; i++)
+        {
+            Debug.Log("index"+(i).ToString() + ":"+data[i]["Hihat"]+" "+data[i]["Base"]+" "+data[i]["Snare"]);
+            note.Add(new int[column]);
+            for (int j = 0; j < column; j++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        note[i][j] = (int)data[j]["Hihat"];
+                        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 1:
+                        note[i][j] = (int)data[j]["Snare"];
+                        Debug.Log("ï¿½ï¿½ï¿½×¾ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 2:
+                        note[i][j] = (int)data[j]["Crash"];
+                        Debug.Log("Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 3:
+                        note[i][j] = (int)data[j]["HighTom"];
+                        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 4:
+                        note[i][j] = (int)data[j]["MidTom"];
+                        Debug.Log("ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 5:
+                        note[i][j] = (int)data[j]["LowTom"];
+                        Debug.Log("ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 6:
+                        note[i][j] = (int)data[j]["Ride"];
+                        Debug.Log("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                    case 7:
+                        note[i][j] = (int)data[j]["Base"];
+                        Debug.Log("ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                        break;
+                }
+            }
+        }
+
+        for (int a = 0; a < row; a++)
+        {
+            for (int b = 0; b < column; b++)
+            {
+                Debug.Log("index" + "[" + (a).ToString() + "]" + "[" + (b).ToString() + "]" + ":" + note[a][b]);
+            }
+        }
+
+        theTimingManager = GetComponent<TimingManager>();
+        Thread.Sleep(2000);
     }
+
+
 }

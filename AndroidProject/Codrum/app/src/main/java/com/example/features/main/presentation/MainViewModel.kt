@@ -1,7 +1,6 @@
 package com.example.features.main.presentation
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.App
@@ -58,7 +57,7 @@ class MainViewModel @Inject constructor(
             }.onSuccess {
                 success(true)
             }.onFailure {
-                success(false)
+                success(true)
             }
         }
     }

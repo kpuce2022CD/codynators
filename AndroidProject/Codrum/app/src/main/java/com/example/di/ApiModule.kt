@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    const val BASE_URL = "http://ec2-3-35-209-32.ap-northeast-2.compute.amazonaws.com:443/"
+    const val BASE_URL = "http://54.180.116.243:5000/"
 
     @Singleton
     @Provides
