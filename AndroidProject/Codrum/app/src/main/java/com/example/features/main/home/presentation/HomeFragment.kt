@@ -1,5 +1,6 @@
 package com.example.features.main.home.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.example.codrum.databinding.FragmentHomeBinding
 import com.example.features.main.data.dto.Song
 import com.example.features.main.presentation.MainViewModel
 import com.example.features.main.presentation.SongAdapter
+import com.unity3d.player.UnityPlayerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -77,12 +79,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         viewModel.recorder.startRecording()
                     }.onSuccess {
                         viewModel.recordFlag = true
-                        // TODO 유니티 연결하기
+                        val intent = Intent(requireActivity(), UnityPlayerActivity::class.java)
+                        intent.putExtra("song", item.filename)
+                        startActivity(intent)
                     }.onFailure {
                         Toast.makeText(requireContext(), "녹음이 불가능합니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // TODO 유니티만 연결
+                    val intent = Intent(requireActivity(), UnityPlayerActivity::class.java)
+                    intent.putExtra("song", item.filename)
+                    startActivity(intent)
                 }
             }.setNegativeButton("취소") { _, _ -> }
             .create()

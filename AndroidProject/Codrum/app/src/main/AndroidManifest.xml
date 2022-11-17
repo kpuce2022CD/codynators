@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Codrum"
         android:usesCleartextTraffic="true">
-        <!--<activity
+        <activity
             android:name="com.unity3d.player.UnityPlayerActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
             android:hardwareAccelerated="false"
@@ -34,7 +34,7 @@
             <meta-data
                 android:name="android.notch_support"
                 android:value="true" />
-        </activity>-->
+        </activity>
         <activity android:name="com.example.features.main.presentation.MainActivity"></activity>
         <activity
             android:name="com.example.features.intro.presentation.IntroActivity"
